@@ -6,7 +6,7 @@
 
     <name>hw-01-maven-proj</name>
     <description>Maven project setup</description>
-    <url>https://github.com/ifqthenp/otus_java_2018_01_andrei/tree/master/hw_01_maven</url>
+    <url>https://github.com/ifqthenp/otus-java-2018-01-andrei/tree/master/hw_01_maven</url>
 
     <groupId>com.otus.2018_01</groupId>
     <artifactId>hw_01_maven</artifactId>
