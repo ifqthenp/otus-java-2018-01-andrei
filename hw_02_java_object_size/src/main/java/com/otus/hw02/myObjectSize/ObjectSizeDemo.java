@@ -30,6 +30,7 @@ public class ObjectSizeDemo
 
         osm.getObjectSize(Object::new, SIZE);
         osm.getObjectSize(() -> new String(""), SIZE);
+        osm.getObjectSize(() -> new String(new char[0]), SIZE);
         osm.getObjectSize(() -> new String(new char[]{}), SIZE);
 
         osm.getObjectSize(MyClass::new, SIZE);
@@ -50,6 +51,10 @@ public class ObjectSizeDemo
         final String str = String.class.getCanonicalName();
         final long strSize = InstrumentationUtil.getObjectSize(() -> new String(""));
         out.println(String.format("%-60s%d", str, strSize));
+
+        final String strSingleChar = String.class.getCanonicalName();
+        final long strSingleCharSize = InstrumentationUtil.getObjectSize(() -> new String(new char[0]));
+        out.println(String.format("%-60s%d", strSingleChar, strSingleCharSize));
 
         final String strChar = String.class.getCanonicalName();
         final long strCharSize = InstrumentationUtil.getObjectSize(() -> new String(new char[]{}));
