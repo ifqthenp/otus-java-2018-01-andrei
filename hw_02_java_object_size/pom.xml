@@ -19,6 +19,9 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <main.class>com.otus.hw02.myObjectSize.ObjectSizeDemo</main.class>
+        <premain.class>com.otus.hw02.instrumentation.InstrumentationUtil</premain.class>
+        <version.jol>0.9</version.jol>
+        <version.maven-assembly-plugin>3.1.0</version.maven-assembly-plugin>
     </properties>
 
     <dependencies>
@@ -26,7 +29,7 @@
         <dependency>
             <groupId>org.openjdk.jol</groupId>
             <artifactId>jol-core</artifactId>
-            <version>0.9</version>
+            <version>${version.jol}</version>
         </dependency>
     </dependencies>
 
@@ -37,7 +40,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${version.maven-assembly-plugin}</version>
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
@@ -48,7 +51,7 @@
                             <mainClass>${main.class}</mainClass>
                         </manifest>
                         <manifestEntries>
-                            <Premain-Class>com.otus.hw02.instrumentation.InstrumentationUtil</Premain-Class>
+                            <Premain-Class>${premain.class}</Premain-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>
