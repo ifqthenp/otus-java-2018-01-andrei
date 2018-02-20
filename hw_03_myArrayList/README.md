@@ -1,4 +1,4 @@
-# HW 2. Custom array-based implementation of List interface
+# HW 2. Array-based implementation of List interface
 
 ```class MyArrayList<T> implements List<T>{...}```
 
@@ -11,6 +11,6 @@ Make sure that the following methods from ```java.utils.Collections```
 
 To run tests type:
 
-```shell
+```
 $ mvn clean test
 ```
