@@ -14,10 +14,13 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8
-        </project.reporting.outputEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <plugin.gmavenplus.version>1.6</plugin.gmavenplus.version>
+        <plugin.maven-surefire.version>2.20.1</plugin.maven-surefire.version>
+        <dependency.spock.version>1.1-groovy-2.4</dependency.spock.version>
+        <dependency.groovy.version>2.4.13</dependency.groovy.version>
     </properties>
 
     <build>
@@ -25,7 +28,7 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.6</version>
+                <version>${plugin.gmavenplus.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -37,7 +40,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
+                <version>${plugin.maven-surefire.version}</version>
                 <configuration>
                     <useFile>false</useFile>
                     <includes>
@@ -52,13 +55,13 @@
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
-            <version>1.1-groovy-2.4</version>
+            <version>${dependency.spock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <version>2.4.13</version>
+            <version>${dependency.groovy.version}</version>
         </dependency>
     </dependencies>
 
