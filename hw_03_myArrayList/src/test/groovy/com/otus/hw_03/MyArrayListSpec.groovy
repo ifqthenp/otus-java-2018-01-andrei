@@ -112,6 +112,11 @@ class MyArrayListSpec extends Specification {
         myArrayList.toString() == "[Alice, Bob, Alice]"
     }
 
+    def "Empty array list returns correct string representation of empty list"() {
+        expect:
+        myArrayList.toString() == "[]"
+    }
+
     def "contains(Object o) returns true if list holds specified element"() {
         when:
         myArrayList.add("Alice")
