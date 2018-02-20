@@ -1,6 +1,7 @@
 package com.otus.hw_03;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * {@code MyArrayList} class. Array-based implementation of array list.
@@ -422,16 +423,9 @@ public class MyArrayList<E> implements List<E>
     @Override
     public String toString()
     {
-        StringBuilder result = new StringBuilder();
-        result.append("[");
-        for (int i = 0; i < this.size(); i++) {
-            if (i < this.size() - 1) {
-                result.append(data[i]).append(", ");
-            } else {
-                result.append(data[i]);
-            }
-        }
-        return result.append("]").toString();
+        return Arrays.stream(this.data, 0, this.size())
+            .map(Object::toString)
+            .collect(Collectors.joining(", ", "[", "]"));
     }
 
     private enum Move
