@@ -14,3 +14,5 @@ To run tests type:
 ```
 $ mvn clean test
 ```
+
+Tests are implemented using groovy-based Spock framework.
