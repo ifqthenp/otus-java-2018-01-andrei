@@ -1,4 +1,4 @@
-# HW 2. Array-based implementation of List interface
+# HW 3. Array-based implementation of List interface
 
 ```class MyArrayList<T> implements List<T>{...}```
 
