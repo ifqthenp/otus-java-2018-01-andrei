@@ -14,6 +14,6 @@ public class FrameworkSecondTest
     {
         final BigInteger prize = new BigInteger("1000000");
         System.out.println("FrameworkSecondTest.firstTestMethodInSecondClass");
-        System.out.println("Congratulations! You have won $" + prize.toString() + "\n");
+        System.out.println("@Test: Congratulations! You have won $" + prize.toString() + "\n");
     }
 }

@@ -4,9 +4,6 @@ import com.otus.hw_05.annotations.After;
 import com.otus.hw_05.annotations.Before;
 import com.otus.hw_05.annotations.Test;
 
-/**
- * {@code FrameworkFirstTest} class with test classes.
- */
 public class FrameworkFirstTest
 {
     private String testString;

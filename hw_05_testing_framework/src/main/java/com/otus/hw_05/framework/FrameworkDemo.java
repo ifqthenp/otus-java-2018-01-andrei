@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -28,10 +30,10 @@ public class FrameworkDemo
     }
 
     /**
-     * Iterates through a set of classes and passes an instance of each class
-     * as an argument to {@code declaredMethodsProcessor()} method.
+     * Iterates through a set of classes and passes a class as
+     * an argument to {@code declaredMethodsProcessor()} method.
      *
-     * @param classes set of classes names
+     * @param classes set of classes
      */
     private static void processTestClasses(final ImmutableSet<ClassPath.ClassInfo> classes)
     {
@@ -91,20 +93,26 @@ public class FrameworkDemo
     }
 
     /**
-     * Gets the first method annotated with the given annotation type
+     * Gets a method annotated with the given annotation type
      * in the stream of methods.
      *
      * @param methods    an array of methods
      * @param annotation an annotation type
-     * @return optional method if annotated with given annotation type
+     * @return optional method if annotated with given annotation type,
+     * otherwise returns empty optional value
      */
-    private static Optional<Method> getAnnotatedMethodFrom(final Method[] methods,
-                                                           final Class<? extends Annotation> annotation)
+    private static Optional<Method> getAnnotatedMethodFrom(final Method[] methods, final Class<? extends Annotation> annotation)
     {
         try (Stream<Method> methodStream = Stream.of(methods)) {
-            return methodStream
+            List<Method> annotated = methodStream
                 .filter(method -> method.isAnnotationPresent(annotation))
-                .findFirst();
+                .collect(Collectors.toList());
+
+            if (annotated.size() > 1) {
+                throw new IllegalStateException("@" + annotation.getSimpleName() + " can be declared just once in a class.");
+            }
+
+            return annotated.size() == 0 ? Optional.empty() : Optional.of(annotated.get(0));
         }
     }
 
