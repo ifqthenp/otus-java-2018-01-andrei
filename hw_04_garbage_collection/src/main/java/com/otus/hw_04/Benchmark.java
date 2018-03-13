@@ -1,13 +1,15 @@
 package com.otus.hw_04;
 
-import java.lang.management.GarbageCollectorMXBean;
-import java.lang.management.ManagementFactory;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.sun.management.GarbageCollectionNotificationInfo;
 
-import static java.util.stream.Collectors.summingLong;
+import javax.management.NotificationEmitter;
+import javax.management.NotificationListener;
+import javax.management.openmbean.CompositeData;
+import java.lang.management.GarbageCollectorMXBean;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Benchmark implements BenchmarkMBean
 {
