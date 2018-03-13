@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class Benchmark implements BenchmarkMBean
 {
+    private static final double MINS_IN_MILLIS = 1.66667e-5;
+    public static Map<String, Double> totals = new HashMap<>();
     private static ArrayList<String> arrayList = new ArrayList<>();
     private volatile int size = 0;
 
@@ -49,5 +51,31 @@ public class Benchmark implements BenchmarkMBean
     public void setSize(final int size)
     {
         this.size = size;
+    }
+
+    @Override
+    public void subscribeToGcEvents()
+    {
+        List<GarbageCollectorMXBean> gcBeans = java.lang.management.ManagementFactory.getGarbageCollectorMXBeans();
+
+        for (GarbageCollectorMXBean gcBean : gcBeans) {
+
+            NotificationEmitter emitter = (NotificationEmitter) gcBean;
+            System.out.println(gcBean.getName());
+
+            NotificationListener listener = (notification, handback) -> {
+                if (notification.getType().equals(GarbageCollectionNotificationInfo.GARBAGE_COLLECTION_NOTIFICATION)) {
+                    GarbageCollectionNotificationInfo gcInfo = GarbageCollectionNotificationInfo.from((CompositeData) notification.getUserData());
+
+                    long duration = gcInfo.getGcInfo().getDuration();
+                    String gcName = gcInfo.getGcName();
+                    totals.merge(gcName, duration * MINS_IN_MILLIS, Double::sum);
+
+                    System.out.println(gcInfo.getGcAction() + ": - " + gcInfo.getGcInfo().getId() + ", " + gcName + " (from " + gcInfo.getGcCause() + ") " + duration + " milliseconds");
+                }
+            };
+
+            emitter.addNotificationListener(listener, null, null);
+        }
     }
 }
