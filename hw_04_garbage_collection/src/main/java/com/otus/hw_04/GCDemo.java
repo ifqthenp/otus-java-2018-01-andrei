@@ -37,13 +37,26 @@ public class GCDemo
         System.out.println("Starting pid: " + ManagementFactory.getRuntimeMXBean().getName());
 
         int size = 5 * 1000 * 1000;
-
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("com.otus:type=Benchmark");
         Benchmark mbean = new Benchmark();
         mbs.registerMBean(mbean, name);
-
         mbean.setSize(size);
-        mbean.run();
+
+        final String dashedLine = "-------------------------";
+
+        try {
+            mbean.subscribeToGcEvents();
+            mbean.run();
+        }
+        catch (OutOfMemoryError e) {
+            final String message = "   TOTAL GC TIME (MIN)   ";
+            System.out.println(dashedLine + message + dashedLine);
+            System.out.println(Benchmark.totals);
+        }
+        finally {
+            final String message = " APPLICATION GOT CRASHED ";
+            System.out.println(dashedLine + message + dashedLine);
+        }
     }
 }
