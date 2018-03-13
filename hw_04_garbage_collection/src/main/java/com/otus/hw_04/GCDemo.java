@@ -6,7 +6,7 @@ import java.lang.management.ManagementFactory;
 
 /**
  * VM options:
- *
+ * <p>
  * -agentlib:jdwp=transport=dt_socket,address=14000,server=y,suspend=n
  * -Xms64m
  * -Xmx64m
@@ -18,7 +18,7 @@ import java.lang.management.ManagementFactory;
  * -XX:+ScavengeBeforeFullGC
  * -XX:+CMSScavengeBeforeRemark
  * -verbose:hw_04
- * -Xloggc:hw_04_garbage_collector/logs/gc_%p.log
+ * -Xloggc:hw_04_garbage_collection/logs/gc_%p.log
  * -XX:+PrintGCDateStamps
  * -XX:+PrintGCDetails
  * -XX:+UseGCLogFileRotation
@@ -28,7 +28,7 @@ import java.lang.management.ManagementFactory;
  * -Dcom.sun.management.jmxremote.authenticate=false
  * -Dcom.sun.management.jmxremote.ssl=false
  * -XX:+HeapDumpOnOutOfMemoryError
- * -XX:HeapDumpPath=hw_04_garbage_collector/dumps/
+ * -XX:HeapDumpPath=hw_04_garbage_collection/dumps/
  */
 public class GCDemo
 {
