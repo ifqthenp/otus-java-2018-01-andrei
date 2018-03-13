@@ -18,12 +18,11 @@ public class Benchmark implements BenchmarkMBean
     void run() throws InterruptedException
     {
         while (true) {
-            arrayList.add(String.valueOf(new char[0]));
-            arrayList.add(String.valueOf(new char[0]));
-            arrayList.add(String.valueOf(new char[0]));
-            arrayList.add(String.valueOf(new char[0]));
-            arrayList.add(String.valueOf(new char[0]));
-            arrayList.add(String.valueOf(new char[0]));
+
+            for (int i = 0; i < 6; i++) {
+                arrayList.add(String.valueOf(new char[0]));
+            }
+
             arrayList.remove(arrayList.size() - 1);
 
             try (Stream<GarbageCollectorMXBean> gcMXBeanStream = ManagementFactory.getGarbageCollectorMXBeans().stream()) {
