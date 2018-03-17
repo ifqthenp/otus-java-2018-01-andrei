@@ -86,7 +86,7 @@ public class FrameworkDemo
                 }
                 catch (IllegalAccessException | InvocationTargetException |
                     NoSuchMethodException | InstantiationException e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }
