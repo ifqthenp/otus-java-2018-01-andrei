@@ -1,6 +1,7 @@
 package com.otus.hw_07.interfaces;
 
 import com.otus.hw_07.classes.AtmMemento;
+import com.otus.hw_07.classes.Denominations;
 
 import java.util.SortedMap;
 
@@ -17,7 +18,7 @@ public interface Atm
      *
      * @param amount amount of cash to withdraw
      */
-    SortedMap<Integer, Integer> withdraw(int amount);
+    SortedMap<Denominations, Integer> withdraw(int amount);
 
     /**
      * Gets total amount of cash available in ATM.

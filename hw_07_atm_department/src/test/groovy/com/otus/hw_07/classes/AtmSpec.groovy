@@ -3,6 +3,8 @@ package com.otus.hw_07.classes
 import com.otus.hw_07.interfaces.Atm
 import spock.lang.Specification
 
+import static com.otus.hw_07.classes.Denominations.*
+
 /**
  * {@code AtmSpec} class is a specification of Atm interface.
  */
@@ -41,19 +43,20 @@ class AtmSpec extends Specification {
 
     def "amount requested for withdrawal is given out in smallest number of banknotes"() {
         when:
-        SortedMap<Integer, Integer> cash = atm.withdraw(amount)
+        SortedMap<Denominations, Integer> cash = atm.withdraw(amount)
 
         then:
+        assert cashMap != null
         cash == cashMap
 
         where:
         amount || cashMap
-        300    || [100: 3]
-        5      || [5: 1]
-        20     || [20: 1]
-        35     || [20: 1, 10: 1, 5: 1]
-        40     || [20: 2]
-        85     || [50: 1, 20: 1, 10: 1, 5: 1]
-        295    || [100: 2, 50: 1, 20: 2, 5: 1]
+        300    || [(HUNDRED): 3]
+        5      || [(FIVE): 1]
+        20     || [(TWENTY): 1]
+        35     || [(TWENTY): 1, (TEN): 1, (FIVE): 1]
+        40     || [(TWENTY): 2]
+        85     || [(FIFTY): 1, (TWENTY): 1, (TEN): 1, (FIVE): 1]
+        295    || [(HUNDRED): 2, (FIFTY): 1, (TWENTY): 2, (FIVE): 1]
     }
 }

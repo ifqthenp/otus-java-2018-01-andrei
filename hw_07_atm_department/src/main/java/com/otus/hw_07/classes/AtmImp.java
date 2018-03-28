@@ -19,14 +19,14 @@ public class AtmImp implements Atm
 
     private static final int WITHDRAWAL_LIMIT = 300;
 
-    private SortedMap<Integer, Integer> cash;
+    private SortedMap<Denominations, Integer> cash;
 
     /**
      * Constructs an ATM with amount of cash defined in {@code atmBuilder}.
      *
      * @param atmBuilder supplies initial amount of cash for this ATM
      */
-    private AtmImp(SortedMap<Integer, Integer> cashMap)
+    private AtmImp(SortedMap<Denominations, Integer> cashMap)
     {
         this.cash = cashMap;
     }
@@ -39,12 +39,12 @@ public class AtmImp implements Atm
      */
     public static AtmImp getInstance()
     {
-        SortedMap<Integer, Integer> cash = new TreeMap<>(comparing(Integer::intValue).reversed());
-        cash.put(HUNDRED.getValue(), getDefaultAmount());
-        cash.put(FIFTY.getValue(), getDefaultAmount());
-        cash.put(TWENTY.getValue(), getDefaultAmount());
-        cash.put(TEN.getValue(), getDefaultAmount());
-        cash.put(FIVE.getValue(), getDefaultAmount());
+        SortedMap<Denominations, Integer> cash = new TreeMap<>(comparing(Denominations::getValue).reversed());
+        cash.put(HUNDRED, getDefaultAmount());
+        cash.put(FIFTY, getDefaultAmount());
+        cash.put(TWENTY, getDefaultAmount());
+        cash.put(TEN, getDefaultAmount());
+        cash.put(FIVE, getDefaultAmount());
         return new AtmImp(cash);
     }
 
@@ -52,22 +52,22 @@ public class AtmImp implements Atm
     public int getCashTotal()
     {
         return this.cash.entrySet().stream()
-            .mapToInt(entry -> entry.getKey() * entry.getValue())
+            .mapToInt(entry -> entry.getKey().getValue() * entry.getValue())
             .sum();
     }
 
     @Override
-    public SortedMap<Integer, Integer> withdraw(final int amount)
+    public SortedMap<Denominations, Integer> withdraw(final int amount)
     {
         checkAmountRequested(amount);
 
-        SortedMap<Integer, Integer> result =
-            new TreeMap<>(comparing(Integer::intValue).reversed());
+        SortedMap<Denominations, Integer> result =
+            new TreeMap<>(comparing(Denominations::getValue).reversed());
 
         cashOperationHelper(result, amount, 0);
 
-        Set<Integer> keys = cash.keySet();
-        for (Integer key : result.keySet()) {
+        Set<Denominations> keys = cash.keySet();
+        for (Denominations key : result.keySet()) {
             if (keys.contains(key)) {
                 cash.put(key, cash.get(key) - result.get(key));
             }
@@ -99,17 +99,17 @@ public class AtmImp implements Atm
      * @param index  the index that points to current banknote denomination
      *               in the array of available banknotes for this cash machine
      */
-    private void cashOperationHelper(SortedMap<Integer, Integer> result, int amount, int index)
+    private void cashOperationHelper(SortedMap<Denominations, Integer> result, int amount, int index)
     {
-        Integer minDenomination = BANKNOTES[BANKNOTES.length - 1].getValue();
-        if (index == minDenomination) return;
+        Denominations minDenomination = BANKNOTES[BANKNOTES.length - 1];
+        if (index == minDenomination.getValue()) return;
 
-        Integer currentBanknote = BANKNOTES[index].getValue();
-        if (amount < currentBanknote) {
+        Denominations currentBanknote = BANKNOTES[index];
+        if (amount < currentBanknote.getValue()) {
             cashOperationHelper(result, amount, index + 1);
         } else {
-            result.put(currentBanknote, amount / currentBanknote);
-            amount = amount % currentBanknote;
+            result.put(currentBanknote, amount / currentBanknote.getValue());
+            amount = amount % currentBanknote.getValue();
             cashOperationHelper(result, amount, index + 1);
         }
     }
@@ -121,7 +121,7 @@ public class AtmImp implements Atm
      */
     private void checkAmountRequested(final int amount)
     {
-        final int minDenomination = cash.lastKey();
+        final int minDenomination = cash.lastKey().getValue();
         if (amount % minDenomination != 0) {
             throw new IllegalArgumentException("Amount is not multiple of " + minDenomination);
         }
