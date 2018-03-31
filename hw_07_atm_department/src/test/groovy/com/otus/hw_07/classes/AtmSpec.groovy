@@ -13,7 +13,7 @@ class AtmSpec extends Specification {
     Atm atm
 
     void setup() {
-        atm = AtmImp.getInstance()
+        atm = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
         assert atm != null
         assert atm.cashTotal == 1850
     }

@@ -1,6 +1,7 @@
 package com.otus.hw_07.main;
 
 import com.otus.hw_07.classes.AtmImp;
+import com.otus.hw_07.classes.CashBuilder;
 import com.otus.hw_07.classes.DepartmentImp;
 import com.otus.hw_07.interfaces.Atm;
 import com.otus.hw_07.interfaces.Department;
@@ -12,9 +13,9 @@ public class AtmDemo
 {
     public static void main(String[] args)
     {
-        Atm atm1 = AtmImp.getInstance();
-        Atm atm2 = AtmImp.getInstance();
-        Atm atm3 = AtmImp.getInstance();
+        Atm atm1 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
+        Atm atm2 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
+        Atm atm3 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
 
         Department department = new DepartmentImp();
         department.addAtm(atm1);
