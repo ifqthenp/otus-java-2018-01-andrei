@@ -21,9 +21,4 @@ public enum Denominations
     {
         return this.denomination;
     }
-
-    public static int getDefaultAmount()
-    {
-        return DEFAULT_AMOUNT;
-    }
 }
