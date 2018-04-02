@@ -19,9 +19,9 @@ class DepartmentSpec extends Specification {
     Integer initialAmountOfCashInDepartment = 5550
 
     void setup() {
-        atm1 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
-        atm3 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
-        atm2 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
+        atm1 = AtmImp.createInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
+        atm3 = AtmImp.createInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
+        atm2 = AtmImp.createInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build())
         assert atm1 != null && atm2 != null && atm3 != null
 
         department = new DepartmentImp()
@@ -35,7 +35,7 @@ class DepartmentSpec extends Specification {
 
     def "An ATM can be added to the department"() {
         expect:
-        department.addAtm(AtmImp.getInstance())
+        department.addAtm(AtmImp.createInstance())
     }
 
     def "Cash withdrawal operation reduces total amount of cash in the department"() {

@@ -37,7 +37,7 @@ public class AtmImp implements Atm
      * @param atmBuilder supplies initial amount of cash for this ATM
      * @return new instance of an ATM
      */
-    public static AtmImp getInstance(final SortedMap<Denominations, Integer> cash)
+    public static AtmImp createInstance(final SortedMap<Denominations, Integer> cash)
     {
         return new AtmImp(cash);
     }

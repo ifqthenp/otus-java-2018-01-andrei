@@ -13,9 +13,9 @@ public class AtmDemo
 {
     public static void main(String[] args)
     {
-        Atm atm1 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
-        Atm atm2 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
-        Atm atm3 = AtmImp.getInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
+        Atm atm1 = AtmImp.createInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
+        Atm atm2 = AtmImp.createInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
+        Atm atm3 = AtmImp.createInstance(new CashBuilder().hundred().fifty().twenty().ten().five().build());
 
         Department department = new DepartmentImp();
         department.addAtm(atm1);
