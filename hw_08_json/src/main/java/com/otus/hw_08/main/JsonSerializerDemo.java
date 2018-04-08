@@ -1,14 +1,21 @@
 package com.otus.hw_08.main;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.otus.hw_08.classes.ObjectProcessor;
+import com.otus.hw_08.interfaces.JsonSerializer;
 import com.otus.hw_08.testClasses.BagOfArrays;
 
 public class JsonSerializerDemo
 {
     public static void main(String[] args)
     {
-        ObjectProcessor processor = new ObjectProcessor();
+        JsonSerializer processor = new ObjectProcessor();
+        final String jsonFrom = processor.getJsonFrom(new BagOfArrays());
+        System.out.println(jsonFrom);
 
-        System.out.println(processor.process(new BagOfArrays()));
+        Gson gson = new GsonBuilder().create();
+        final String toJson = gson.toJson(new BagOfArrays());
+        System.out.println(toJson);
     }
 }

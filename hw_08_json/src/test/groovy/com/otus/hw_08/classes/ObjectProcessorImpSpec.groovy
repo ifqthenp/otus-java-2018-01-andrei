@@ -2,10 +2,7 @@ package com.otus.hw_08.classes
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.otus.hw_08.testClasses.BagOfArrays
-import com.otus.hw_08.testClasses.BagOfObjects
-import com.otus.hw_08.testClasses.BagOfPrimitives
-import com.otus.hw_08.testClasses.Person
+import com.otus.hw_08.testClasses.*
 import spock.lang.Specification
 
 import java.awt.*
@@ -23,12 +20,12 @@ class ObjectProcessorImpSpec extends Specification {
 
     def "Object processor returns correct result if object is null"() {
         expect:
-        processor.process(null) == gson.toJson(null).toString()
+        processor.getJsonFrom(null) == gson.toJson(null).toString()
     }
 
     def "Object processor returns correct result if object is primitive type"() {
         expect:
-        processor.process(primitive) == gson.toJson(primitive).toString()
+        processor.getJsonFrom(primitive) == gson.toJson(primitive).toString()
 
         where:
         primitive        || result
@@ -52,7 +49,7 @@ class ObjectProcessorImpSpec extends Specification {
 
     def "Object processor returns correct result if object is an array"() {
         expect:
-        processor.process(array) == gson.toJson(array).toString()
+        processor.getJsonFrom(array) == gson.toJson(array).toString()
 
         where:
         array                                                                                                                                        || result
@@ -71,7 +68,7 @@ class ObjectProcessorImpSpec extends Specification {
 
     def "Object processor returns correct result if object is collection"() {
         expect:
-        processor.process(collection) == gson.toJson(collection).toString()
+        processor.getJsonFrom(collection) == gson.toJson(collection).toString()
 
         where:
         collection                                || result
@@ -82,9 +79,9 @@ class ObjectProcessorImpSpec extends Specification {
 
     def "Object processor returns correct result if argument is an object"() {
         expect:
-        processor.process(obj) == gson.toJson(obj).toString()
+        processor.getJsonFrom(obj) == gson.toJson(obj).toString()
 
-        println processor.process(obj)
+        println processor.getJsonFrom(obj)
 
         where:
         obj                                                    || result
@@ -99,9 +96,11 @@ class ObjectProcessorImpSpec extends Specification {
         new BagOfObjects(new Person("John", 33), new Object()) || _
         new BagOfArrays()                                      || _
         new Point()                                            || _
-        new Random()                                           || _
         new ArrayList()                                        || _
         new File("")                                           || _
-        new BigDecimal("1000000")                              || _
+        new BigDecimal("1000000000000000000")                  || _
+        new Employee("John Smith", 55, 999)                    || _
+        new Employee(999)                                      || _
+        new Employee()                                         || _
     }
 }
