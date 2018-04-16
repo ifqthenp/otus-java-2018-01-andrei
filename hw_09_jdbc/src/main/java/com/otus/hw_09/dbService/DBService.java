@@ -2,7 +2,6 @@ package com.otus.hw_09.dbService;
 
 import com.otus.hw_09.dataset.DataSet;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface DBService extends AutoCloseable
