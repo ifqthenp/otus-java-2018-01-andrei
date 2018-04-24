@@ -1,0 +1,13 @@
+version: '3'
+services:
+    mysqldb:
+        image: 'mysql:latest'
+        container_name: 'hw_09_hibernate'
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: ''
+            MYSQL_DATABASE: 'hw_09_hibernate'
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'user'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
