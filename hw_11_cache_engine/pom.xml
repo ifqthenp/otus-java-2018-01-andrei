@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>hw_11_cache_engine</name>
+    <description>Homework 11 Cache Engine with Soft References</description>
+    <url>https://github.com/ifqthenp/otus-java-2018-01-andrei/tree/master/hw_11_cache_engine</url>
+
+    <groupId>com.otus.2018_01</groupId>
+    <artifactId>hw_11_cache_engine</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <main.class>com.otus.hw_11.main.Main</main.class>
+
+        <dep.ver.mysql-connector-java>8.0.11</dep.ver.mysql-connector-java>
+        <dep.ver.hibernate-core>5.2.16.Final</dep.ver.hibernate-core>
+        <dep.ver.hibernate-hikaricp>5.2.16.Final</dep.ver.hibernate-hikaricp>
+        <dep.ver.jaxb-api>2.3.0</dep.ver.jaxb-api>
+        <dep.ver.slf4j-api>1.7.25</dep.ver.slf4j-api>
+        <dep.ver.slf4j-log4j12>1.7.25</dep.ver.slf4j-log4j12>
+
+        <plg.ver.maven-asembly>3.1.0</plg.ver.maven-asembly>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${dep.ver.mysql-connector-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${dep.ver.hibernate-core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-hikaricp</artifactId>
+            <version>${dep.ver.hibernate-hikaricp}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${dep.ver.jaxb-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${dep.ver.slf4j-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${dep.ver.slf4j-log4j12}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${plg.ver.maven-asembly}</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
