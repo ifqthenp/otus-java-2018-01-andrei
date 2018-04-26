@@ -1,0 +1,13 @@
+version: '3'
+services:
+    mysqldb:
+        image: 'mysql:latest'
+        container_name: 'hw_11_cache_engine'
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: ''
+            MYSQL_DATABASE: 'hw_11_cache_engine'
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'user'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
