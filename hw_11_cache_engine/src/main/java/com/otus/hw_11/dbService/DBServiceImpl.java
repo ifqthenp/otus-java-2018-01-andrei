@@ -15,9 +15,7 @@ public class DBServiceImpl implements DBService
 
     public String getLocalStatus()
     {
-        return runInSession(session -> {
-            return session.getTransaction().getStatus().name();
-        });
+        return runInSession(session -> session.getTransaction().getStatus().name());
     }
 
     public void save(UserDataSet dataSet)
