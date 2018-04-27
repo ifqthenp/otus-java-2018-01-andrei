@@ -10,7 +10,10 @@ public abstract class DataSet
     @Column(name = "ID", updatable = false, nullable = false)
     private long id;
 
-    public DataSet() {}
+    public DataSet()
+    {
+        this.setId(-1);
+    }
 
     public long getId()
     {
