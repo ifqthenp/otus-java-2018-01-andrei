@@ -23,7 +23,7 @@ public class CacheEngineImp<K, V> implements CacheEngine<K, V>
     private int hit = 0;
     private int miss = 0;
 
-    CacheEngineImp(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal)
+    public CacheEngineImp(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal)
     {
         this.maxElements = maxElements;
         this.lifeTimeMs = lifeTimeMs > 0 ? lifeTimeMs : 0;
