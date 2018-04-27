@@ -1,11 +1,13 @@
 package com.otus.hw_11.cache;
 
+import java.lang.ref.SoftReference;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Function;
 
+@SuppressWarnings("unchecked")
 public class CacheEngineImp<K, V> implements CacheEngine<K, V>
 {
     private static final int TIME_THRESHOLD_MS = 5;
@@ -15,7 +17,7 @@ public class CacheEngineImp<K, V> implements CacheEngine<K, V>
     private final long idleTimeMs;
     private final boolean isEternal;
 
-    private final Map<K, MyElement<K, V>> elements = new LinkedHashMap<>();
+    private final Map<K, SoftReference<MyElement<K, V>>> elements = new LinkedHashMap<>();
     private final Timer timer = new Timer();
 
     private int hit = 0;
@@ -37,7 +39,10 @@ public class CacheEngineImp<K, V> implements CacheEngine<K, V>
         }
 
         K key = element.getKey();
-        elements.put(key, element);
+        elements.put(key, new SoftReference<>(element));
+
+        /* Set element to null to make it softly reachable only */
+        element = null;
 
         if (!isEternal) {
             if (lifeTimeMs != 0) {
@@ -51,10 +56,12 @@ public class CacheEngineImp<K, V> implements CacheEngine<K, V>
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public MyElement<K, V> get(K key)
     {
-        MyElement<K, V> element = elements.get(key);
-        if (element != null) {
+        MyElement<K, V> element = null;
+        if (elements.get(key) != null) {
+            element = elements.get(key).get();
             hit++;
             element.setAccessed();
         } else {
@@ -86,7 +93,7 @@ public class CacheEngineImp<K, V> implements CacheEngine<K, V>
             @Override
             public void run()
             {
-                MyElement<K, V> element = elements.get(key);
+                MyElement<K, V> element = elements.get(key).get();
                 if (element == null || isT1BeforeT2(timeFunction.apply(element), System.currentTimeMillis())) {
                     elements.remove(key);
                     this.cancel();
