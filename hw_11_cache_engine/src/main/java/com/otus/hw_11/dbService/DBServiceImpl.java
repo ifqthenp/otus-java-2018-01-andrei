@@ -25,9 +25,15 @@ public class DBServiceImpl implements DBService
 
     public void save(UserDataSet dataSet)
     {
-        try (Session session = sessionFactory.openSession()) {
-            UserDataSetDAO dao = new UserDataSetDAO(session);
-            dao.save(dataSet);
+        long dataSetKey = dataSet.getId();
+        if (dataSetKey == -1) {
+            saveInSession(session -> {
+                UserDataSetDAO dao = new UserDataSetDAO(session);
+                dao.save(dataSet);
+            });
+            cache.put(new MyElement(dataSet.getId(), dataSet));
+        } else {
+            cache.put(new MyElement(dataSetKey, dataSet));
         }
     }
 
