@@ -39,10 +39,14 @@ public class DBServiceImpl implements DBService
 
     public UserDataSet read(long id)
     {
-        return runInSession(session -> {
-            UserDataSetDAO dao = new UserDataSetDAO(session);
-            return dao.read(id);
-        });
+        if (cache.get(id) == null) {
+            UserDataSet user = runInSession(session -> {
+                UserDataSetDAO dao = new UserDataSetDAO(session);
+                return dao.read(id);
+            });
+            cache.put(new MyElement<>(user.getId(), user));
+        }
+        return cache.get(id).getValue();
     }
 
     public UserDataSet readByName(String name)
