@@ -20,6 +20,8 @@
 
         <main.class>com.otus.hw_11.main.Main</main.class>
 
+        <dep.ver.spock>1.1-groovy-2.4</dep.ver.spock>
+        <dep.ver.groovy>2.4.13</dep.ver.groovy>
         <dep.ver.mysql-connector-java>8.0.11</dep.ver.mysql-connector-java>
         <dep.ver.hibernate-core>5.2.16.Final</dep.ver.hibernate-core>
         <dep.ver.hibernate-hikaricp>5.2.16.Final</dep.ver.hibernate-hikaricp>
@@ -28,9 +30,22 @@
         <dep.ver.slf4j-log4j12>1.7.25</dep.ver.slf4j-log4j12>
 
         <plg.ver.maven-asembly>3.1.0</plg.ver.maven-asembly>
+        <plg.ver.gmavenplus>1.6</plg.ver.gmavenplus>
+        <plg.ver.maven-surefire>2.20.1</plg.ver.maven-surefire>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${dep.ver.spock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${dep.ver.groovy}</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -89,6 +104,29 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${plugin.ver.gmavenplus}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${plugin.ver.maven-surefire}</version>
+                <configuration>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
