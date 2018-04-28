@@ -66,7 +66,9 @@ public class DBServiceImpl implements DBService
     {
         return runInSession(session -> {
             UserDataSetDAO dao = new UserDataSetDAO(session);
-            return dao.readAll();
+            List<UserDataSet> list = dao.readAll();
+            list.forEach(user -> cache.put(new MyElement<>(user.getId(), user)));
+            return list;
         });
     }
 
