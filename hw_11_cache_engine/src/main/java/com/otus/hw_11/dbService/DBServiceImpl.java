@@ -1,5 +1,8 @@
 package com.otus.hw_11.dbService;
 
+import com.otus.hw_11.cache.CacheEngine;
+import com.otus.hw_11.cache.CacheEngineImp;
+import com.otus.hw_11.cache.MyElement;
 import com.otus.hw_11.entities.UserDataSet;
 import com.otus.hw_11.util.HibernateUtil;
 import org.hibernate.Session;
@@ -12,6 +15,7 @@ import java.util.function.Function;
 public class DBServiceImpl implements DBService
 {
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private final CacheEngine<Long, UserDataSet> cache = new CacheEngineImp<>(10, 0, 0, true);
 
     public String getLocalStatus()
     {
@@ -53,6 +57,7 @@ public class DBServiceImpl implements DBService
     public void shutdown()
     {
         sessionFactory.close();
+        cache.dispose();
     }
 
     private <R> R runInSession(Function<Session, R> function)
