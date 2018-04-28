@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class DBServiceImpl implements DBService
@@ -67,6 +68,15 @@ public class DBServiceImpl implements DBService
             R result = function.apply(session);
             transaction.commit();
             return result;
+        }
+    }
+
+    private <T> void saveInSession(Consumer<Session> consumer)
+    {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            consumer.accept(session);
+            transaction.commit();
         }
     }
 }
