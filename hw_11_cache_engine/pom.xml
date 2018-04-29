@@ -108,7 +108,7 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>${plugin.ver.gmavenplus}</version>
+                <version>${plg.ver.gmavenplus}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -120,7 +120,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${plugin.ver.maven-surefire}</version>
+                <version>${plg.ver.maven-surefire}</version>
                 <configuration>
                     <useFile>false</useFile>
                     <includes>
