@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -66,12 +67,11 @@ public class DBServiceImpl implements DBService
 
     public List<UserDataSet> readAll()
     {
-        return runInSession(session -> {
-            UserDataSetDAO dao = new UserDataSetDAO(session);
-            List<UserDataSet> list = dao.readAll();
-            list.forEach(user -> cache.put(new MyElement<>(user.getId(), user)));
-            return list;
-        });
+        List<UserDataSet> result = new ArrayList<>((int) lastInsertId);
+        for (int i = MYSQL_FIRST_GENERATED_ID; i <= lastInsertId; i++) {
+            result.add(this.read(i));
+        }
+        return result;
     }
 
     public void shutdown()
