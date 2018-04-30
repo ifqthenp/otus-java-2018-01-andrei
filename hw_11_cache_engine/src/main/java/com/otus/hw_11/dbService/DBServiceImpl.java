@@ -15,6 +15,7 @@ import java.util.function.Function;
 
 public class DBServiceImpl implements DBService
 {
+    private final static int MYSQL_FIRST_GENERATED_ID = 1;
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private final CacheEngine<Long, UserDataSet> cache = new CacheEngineImp<>(10, 0, 0, true);
 
