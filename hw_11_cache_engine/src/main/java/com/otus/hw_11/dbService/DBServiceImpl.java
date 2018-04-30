@@ -34,6 +34,7 @@ public class DBServiceImpl implements DBService
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 dao.save(dataSet);
             });
+            lastInsertId = dataSet.getId();
             putInCache(new MyElement(lastInsertId, dataSet));
         } else {
             putInCache(new MyElement(dataSetKey, dataSet));
