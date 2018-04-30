@@ -19,16 +19,28 @@ public class Main
             System.out.println("Status: " + status);
 
             AddressDataSet brickLane = new AddressDataSet("Brick Lane");
-            AddressDataSet oldStreet = new AddressDataSet("Old Street");
-            AddressDataSet liverpoolStreet = new AddressDataSet("Liverpool Street");
+            AddressDataSet oldStreet = new AddressDataSet("Old Str");
+            AddressDataSet liverpoolStreet = new AddressDataSet("Liverpool Str");
+            AddressDataSet chelsea = new AddressDataSet("Chelsea");
+            AddressDataSet bristol = new AddressDataSet("Bristol");
 
-            UserDataSet carl = getCarl(brickLane);
+            UserDataSet carl = getCarl(chelsea);
             UserDataSet harry = getHarry(oldStreet);
-            UserDataSet tony = getTony(liverpoolStreet);
+            UserDataSet tony = getTony(brickLane);
+            UserDataSet joe = getJoe(bristol);
+            UserDataSet johnny = getJohnny(liverpoolStreet);
+
+            dbService.save(carl);
+            dbService.save(johnny);
+            dbService.save(tony);
+            dbService.save(joe);
+            dbService.save(johnny);
 
             dbService.save(carl);
             dbService.save(harry);
             dbService.save(tony);
+            dbService.save(joe);
+            dbService.save(johnny);
 
             carl = dbService.read(1);
             System.out.println("Read by ID: " + carl);
@@ -92,5 +104,25 @@ public class Main
         tony.addAddress(address);
         tony.addPhoneNumber(new PhoneDataSet("01632 777999"));
         return tony;
+    }
+
+    private static UserDataSet getJoe(final AddressDataSet address)
+    {
+        UserDataSet joe = new UserDataSet();
+        joe.setName("Dodgy Joe");
+        joe.setAge(31);
+        joe.addAddress(address);
+        joe.addPhoneNumber(new PhoneDataSet(null));
+        return joe;
+    }
+
+    private static UserDataSet getJohnny(final AddressDataSet address)
+    {
+        UserDataSet johnny = new UserDataSet();
+        johnny.setName("Johnny FooBar");
+        johnny.setAge(25);
+        johnny.addAddress(address);
+        johnny.addPhoneNumber(new PhoneDataSet("01632 000111"));
+        return johnny;
     }
 }
