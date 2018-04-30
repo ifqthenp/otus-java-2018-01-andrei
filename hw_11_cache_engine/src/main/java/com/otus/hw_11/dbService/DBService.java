@@ -4,9 +4,6 @@ import com.otus.hw_11.entities.UserDataSet;
 
 import java.util.List;
 
-/**
- * @author v.chibrikov
- */
 public interface DBService
 {
     String getLocalStatus();
