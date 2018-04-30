@@ -43,14 +43,15 @@ public class DBServiceImpl implements DBService
 
     public UserDataSet read(long id)
     {
-        if (cache.get(id) == null) {
+        MyElement<Long, UserDataSet> cachedElement = cache.get(id);
+        if (cachedElement == null) {
             UserDataSet user = runInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 return dao.read(id);
             });
             putInCache(new MyElement<>(user.getId(), user));
         }
-        return cache.get(id).getValue();
+        return cachedElement.getValue();
     }
 
     public UserDataSet readByName(String name)
