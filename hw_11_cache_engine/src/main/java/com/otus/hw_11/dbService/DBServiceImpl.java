@@ -33,9 +33,9 @@ public class DBServiceImpl implements DBService
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 dao.save(dataSet);
             });
-            cache.put(new MyElement(dataSet.getId(), dataSet));
+            putInCache(new MyElement(lastInsertId, dataSet));
         } else {
-            cache.put(new MyElement(dataSetKey, dataSet));
+            putInCache(new MyElement(dataSetKey, dataSet));
         }
     }
 
@@ -46,7 +46,7 @@ public class DBServiceImpl implements DBService
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 return dao.read(id);
             });
-            cache.put(new MyElement<>(user.getId(), user));
+            putInCache(new MyElement<>(user.getId(), user));
         }
         return cache.get(id).getValue();
     }
@@ -57,7 +57,7 @@ public class DBServiceImpl implements DBService
             UserDataSetDAO dao = new UserDataSetDAO(session);
             UserDataSet userDataSet = dao.readByName(name);
             if (userDataSet != null) {
-                cache.put(new MyElement(userDataSet.getId(), userDataSet));
+                putInCache(new MyElement(userDataSet.getId(), userDataSet));
                 return userDataSet;
             }
             return null;
@@ -78,6 +78,11 @@ public class DBServiceImpl implements DBService
     {
         sessionFactory.close();
         cache.dispose();
+    }
+
+    private void putInCache(MyElement<Long, UserDataSet> element)
+    {
+        cache.put(element);
     }
 
     private <R> R runInSession(Function<Session, R> function)
