@@ -6,17 +6,29 @@ Write your cache engine with soft references. Add caching to `DBService` for Hom
 
 ### How to get application running
 
-Install [Docker](https://www.docker.com/community-edition)
+Install [Docker](https://www.docker.com/community-edition) and run
 
 ```shell
 docker-compose up -d
 ```
 
-then type in the console
+clone application to your computer
+
+```shell
+git clone -b master https://github.com/ifqthenp/otus-java-2018-01-andrei.git
+```
+
+`cd` into module folder
+
+```shell
+cd hw_11_cache_engine
+```
+
+and type in the console
 
 ```shell
 mvn clean package
-java -jar target/hw_10_jdbc.jar
+java -jar target/hw_11_cache_engine.jar
 ```
 
 or simply run program from an IDE.
