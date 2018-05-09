@@ -16,5 +16,7 @@ public interface DBService
 
     List<UserDataSet> readAll();
 
+    List<Long> readAllIds();
+
     void shutdown();
 }

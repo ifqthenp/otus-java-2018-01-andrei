@@ -66,6 +66,9 @@ public class Main
             dataSets.forEach(u -> System.out.printf("%d %s %d %s %s %n", u.getId(), u.getName(), u.getAge(), u.getAddressDataSet(), u.getPhoneNumbers()));
             System.out.println();
 
+            List<Long> ids = dbService.readAllIds();
+            System.out.println(ids);
+
             dbService.shutdown();
         }
         catch (Exception e) {
