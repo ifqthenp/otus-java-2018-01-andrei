@@ -61,9 +61,8 @@ public class DBServiceImpl implements DBService
             UserDataSet userDataSet = dao.readByName(name);
             if (userDataSet != null) {
                 putInCache(new MyElement(userDataSet.getId(), userDataSet));
-                return userDataSet;
             }
-            return null;
+            return userDataSet;
         });
     }
 
