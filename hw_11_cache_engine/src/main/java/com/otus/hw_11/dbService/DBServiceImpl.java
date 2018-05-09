@@ -68,11 +68,14 @@ public class DBServiceImpl implements DBService
 
     public List<UserDataSet> readAll()
     {
-        List<UserDataSet> result = new ArrayList<>((int) lastInsertId);
-        for (int i = MYSQL_FIRST_GENERATED_ID; i <= lastInsertId; i++) {
-            result.add(this.read(i));
-        }
-        return result;
+        List<UserDataSet> users = runInSession(session -> {
+            UserDataSetDAO dao = new UserDataSetDAO(session);
+            return dao.readAll();
+        });
+        users.forEach(user -> putInCache(new MyElement<>(user.getId(), user)));
+        return users;
+    }
+
     }
 
     public void shutdown()
