@@ -16,10 +16,9 @@ import java.util.function.Function;
 
 public class DBServiceImpl implements DBService
 {
-    private final static int MYSQL_FIRST_GENERATED_ID = 1;
+    private final static int INITIAL_ID = -1;
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private final CacheEngine<Long, UserDataSet> cache = new CacheEngineImp<>(10, 0, 0, true);
-    private long lastInsertId;
 
     public String getLocalStatus()
     {
@@ -29,14 +28,17 @@ public class DBServiceImpl implements DBService
     public void save(UserDataSet dataSet)
     {
         long dataSetKey = dataSet.getId();
-        if (dataSetKey == -1) {
-            saveInSession(session -> {
+        if (dataSetKey == INITIAL_ID) {
+            long insertedId = runInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
-                dao.save(dataSet);
+                return dao.save(dataSet);
             });
-            lastInsertId = dataSet.getId();
-            putInCache(new MyElement(lastInsertId, dataSet));
+            putInCache(new MyElement(insertedId, dataSet));
         } else {
+            updateInSession(session -> {
+                UserDataSetDAO dao = new UserDataSetDAO(session);
+                dao.update(dataSet);
+            });
             putInCache(new MyElement(dataSetKey, dataSet));
         }
     }
@@ -97,7 +99,7 @@ public class DBServiceImpl implements DBService
         }
     }
 
-    private <T> void saveInSession(Consumer<Session> consumer)
+    private <T> void updateInSession(Consumer<Session> consumer)
     {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

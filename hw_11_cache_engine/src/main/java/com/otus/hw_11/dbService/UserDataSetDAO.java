@@ -18,9 +18,14 @@ public class UserDataSetDAO
         this.session = session;
     }
 
-    public void save(UserDataSet dataSet)
+    public long save(UserDataSet dataSet)
     {
-        session.save(dataSet);
+        return (long) session.save(dataSet);
+    }
+
+    public void update(UserDataSet dataSet)
+    {
+        session.update(dataSet);
     }
 
     public UserDataSet read(long id)
