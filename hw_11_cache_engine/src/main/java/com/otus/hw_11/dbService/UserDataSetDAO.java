@@ -50,4 +50,14 @@ public class UserDataSetDAO
         criteria.from(UserDataSet.class);
         return session.createQuery(criteria).list();
     }
+
+    public List<Long> readAllIds()
+    {
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<UserDataSet> from = criteria.from(UserDataSet.class);
+        criteria.orderBy(builder.asc(from.get("id")));
+        criteria.select(from.get("id"));
+        return session.createQuery(criteria).getResultList();
+    }
 }

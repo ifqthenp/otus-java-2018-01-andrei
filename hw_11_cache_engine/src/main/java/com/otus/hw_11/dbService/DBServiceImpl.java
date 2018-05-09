@@ -76,6 +76,12 @@ public class DBServiceImpl implements DBService
         return users;
     }
 
+    public List<Long> readAllIds()
+    {
+        return runInSession(session -> {
+            UserDataSetDAO dao = new UserDataSetDAO(session);
+            return dao.readAllIds();
+        });
     }
 
     public void shutdown()
