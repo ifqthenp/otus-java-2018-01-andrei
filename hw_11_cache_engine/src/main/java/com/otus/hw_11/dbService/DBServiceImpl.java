@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -45,15 +44,14 @@ public class DBServiceImpl implements DBService
 
     public UserDataSet read(long id)
     {
-        MyElement<Long, UserDataSet> cachedElement = cache.get(id);
-        if (cachedElement == null) {
+        if (cache.get(id) == null) {
             UserDataSet user = runInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 return dao.read(id);
             });
             putInCache(new MyElement<>(user.getId(), user));
         }
-        return cachedElement.getValue();
+        return cache.get(id).getValue();
     }
 
     public UserDataSet readByName(String name)
