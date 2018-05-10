@@ -20,12 +20,14 @@
 
         <main.class>com.otus.hw_12.main.Main</main.class>
 
+        <dep.ver.jetty-server>9.4.10.v20180503</dep.ver.jetty-server>
+        <dep.ver.jetty-webapp>9.4.10.v20180503</dep.ver.jetty-webapp>
+        <dep.ver.freemarker>2.3.28</dep.ver.freemarker>
         <dep.ver.spock>1.1-groovy-2.4</dep.ver.spock>
         <dep.ver.groovy>2.4.15</dep.ver.groovy>
         <dep.ver.mysql-connector-java>8.0.11</dep.ver.mysql-connector-java>
         <dep.ver.hibernate-core>5.2.17.Final</dep.ver.hibernate-core>
         <dep.ver.hibernate-hikaricp>5.2.17.Final</dep.ver.hibernate-hikaricp>
-        <dep.ver.jaxb-api>2.3.0</dep.ver.jaxb-api>
         <dep.ver.slf4j-api>1.7.25</dep.ver.slf4j-api>
         <dep.ver.slf4j-log4j12>1.7.25</dep.ver.slf4j-log4j12>
 
@@ -35,6 +37,21 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${dep.ver.jetty-server}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${dep.ver.jetty-webapp}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${dep.ver.freemarker}</version>
+        </dependency>
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
@@ -60,11 +77,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-hikaricp</artifactId>
             <version>${dep.ver.hibernate-hikaricp}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${dep.ver.jaxb-api}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
