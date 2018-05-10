@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tully.
- */
 public class AdminServlet extends HttpServlet {
 
     private static final String DEFAULT_USER_NAME = "UNKNOWN";

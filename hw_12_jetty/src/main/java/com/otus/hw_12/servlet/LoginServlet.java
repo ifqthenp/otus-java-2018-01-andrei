@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author v.chibrikov
- */
 public class LoginServlet extends HttpServlet {
 
     public static final String LOGIN_PARAMETER_NAME = "login";

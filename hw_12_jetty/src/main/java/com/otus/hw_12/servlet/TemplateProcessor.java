@@ -10,9 +10,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
-/**
- * @author v.chibrikov
- */
 class TemplateProcessor {
     private static final String HTML_DIR = "tml";
 
