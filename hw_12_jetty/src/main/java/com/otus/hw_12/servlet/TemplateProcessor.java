@@ -11,7 +11,7 @@ import java.io.Writer;
 import java.util.Map;
 
 class TemplateProcessor {
-    private static final String HTML_DIR = "tml";
+    private static final String HTML_DIR = "hw_12_jetty/tml";
 
     private final Configuration configuration;
 
@@ -22,7 +22,7 @@ class TemplateProcessor {
     }
 
     String getPage(String filename, Map<String, Object> data) throws IOException {
-        try (Writer stream = new StringWriter();) {
+        try (Writer stream = new StringWriter()) {
             Template template = configuration.getTemplate(filename);
             template.process(data, stream);
             return stream.toString();
