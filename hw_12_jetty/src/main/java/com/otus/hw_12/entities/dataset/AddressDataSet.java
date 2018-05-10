@@ -1,4 +1,4 @@
-package com.otus.hw_12.entities;
+package com.otus.hw_12.entities.dataset;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

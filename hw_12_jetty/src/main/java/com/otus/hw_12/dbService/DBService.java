@@ -1,6 +1,6 @@
 package com.otus.hw_12.dbService;
 
-import com.otus.hw_12.entities.UserDataSet;
+import com.otus.hw_12.entities.dataset.UserDataSet;
 
 import java.util.List;
 

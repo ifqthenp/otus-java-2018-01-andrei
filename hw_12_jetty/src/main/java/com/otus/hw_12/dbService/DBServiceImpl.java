@@ -3,7 +3,7 @@ package com.otus.hw_12.dbService;
 import com.otus.hw_12.cache.CacheEngine;
 import com.otus.hw_12.cache.CacheEngineImp;
 import com.otus.hw_12.cache.MyElement;
-import com.otus.hw_12.entities.UserDataSet;
+import com.otus.hw_12.entities.dataset.UserDataSet;
 import com.otus.hw_12.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

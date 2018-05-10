@@ -15,8 +15,8 @@
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
 
-        <mapping class="com.otus.hw_12.entities.UserDataSet"/>
-        <mapping class="com.otus.hw_12.entities.AddressDataSet"/>
-        <mapping class="com.otus.hw_12.entities.PhoneDataSet"/>
+        <mapping class="com.otus.hw_12.entities.dataset.UserDataSet"/>
+        <mapping class="com.otus.hw_12.entities.dataset.AddressDataSet"/>
+        <mapping class="com.otus.hw_12.entities.dataset.PhoneDataSet"/>
     </session-factory>
 </hibernate-configuration>

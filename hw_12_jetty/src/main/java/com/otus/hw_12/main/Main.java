@@ -3,9 +3,9 @@ package com.otus.hw_12.main;
 
 import com.otus.hw_12.dbService.DBService;
 import com.otus.hw_12.dbService.DBServiceImpl;
-import com.otus.hw_12.entities.AddressDataSet;
-import com.otus.hw_12.entities.PhoneDataSet;
-import com.otus.hw_12.entities.UserDataSet;
+import com.otus.hw_12.entities.dataset.AddressDataSet;
+import com.otus.hw_12.entities.dataset.PhoneDataSet;
+import com.otus.hw_12.entities.dataset.UserDataSet;
 
 import java.util.List;
 
