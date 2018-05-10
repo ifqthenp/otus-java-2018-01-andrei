@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 
 public class ResourceMain {
     private final static int PORT = 8090;
-    private final static String PUBLIC_HTML = "public_html";
+    private final static String PUBLIC_HTML = "hw_12_jetty/public_html";
 
     public static void main(String[] args) throws Exception {
 
