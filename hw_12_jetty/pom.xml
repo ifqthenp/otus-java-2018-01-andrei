@@ -20,6 +20,7 @@
 
         <main.class>com.otus.hw_12.main.Main</main.class>
 
+        <dep.ver.cache-api>1.1.0</dep.ver.cache-api>
         <dep.ver.ehcache>3.5.2</dep.ver.ehcache>
         <dep.ver.jetty-server>9.4.10.v20180503</dep.ver.jetty-server>
         <dep.ver.jetty-webapp>9.4.10.v20180503</dep.ver.jetty-webapp>
@@ -38,6 +39,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${dep.ver.cache-api}</version>
+        </dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
