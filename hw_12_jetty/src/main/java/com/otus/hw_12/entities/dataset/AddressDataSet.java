@@ -62,8 +62,8 @@ public class AddressDataSet extends DataSet
     public String toString()
     {
         return "AddressDataSet{" +
-            "id=" + getId() +
-            ", street='" + street + '\'' +
-            '}';
+                "id=" + getId() +
+                ", street='" + street + '\'' +
+                '}';
     }
 }

@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AdminServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet
+{
 
     private static final String DEFAULT_USER_NAME = "UNKNOWN";
     private static final String ADMIN_PAGE_TEMPLATE = "admin.html";
@@ -16,16 +17,19 @@ public class AdminServlet extends HttpServlet {
     private final TemplateProcessor templateProcessor;
 
     @SuppressWarnings("WeakerAccess")
-    public AdminServlet(TemplateProcessor templateProcessor) {
+    public AdminServlet(TemplateProcessor templateProcessor)
+    {
         this.templateProcessor = templateProcessor;
     }
 
     @SuppressWarnings("WeakerAccess")
-    public AdminServlet() throws IOException {
+    public AdminServlet() throws IOException
+    {
         this(new TemplateProcessor());
     }
 
-    private static Map<String, Object> createPageVariablesMap(HttpServletRequest request) {
+    private static Map<String, Object> createPageVariablesMap(HttpServletRequest request)
+    {
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("method", request.getMethod());
         pageVariables.put("URL", request.getRequestURL().toString());
@@ -40,8 +44,8 @@ public class AdminServlet extends HttpServlet {
         return pageVariables;
     }
 
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
         Map<String, Object> pageVariables = createPageVariablesMap(request);
 

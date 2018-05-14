@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TimerServlet extends HttpServlet {
-
+public class TimerServlet extends HttpServlet
+{
     private static final String REFRESH_VARIABLE_NAME = "refreshPeriod";
     private static final String TIME_VARIABLE_NAME = "time";
     private static final String TIMER_PAGE_TEMPLATE = "timer.html";
@@ -22,24 +22,27 @@ public class TimerServlet extends HttpServlet {
     private final TemplateProcessor templateProcessor;
 
     @SuppressWarnings("WeakerAccess")
-    public TimerServlet(TemplateProcessor templateProcessor) {
+    public TimerServlet(TemplateProcessor templateProcessor)
+    {
         this.templateProcessor = templateProcessor;
     }
 
     @SuppressWarnings("WeakerAccess")
-    public TimerServlet() throws IOException {
+    public TimerServlet() throws IOException
+    {
         this(new TemplateProcessor());
     }
 
-    private static String getTime() {
+    private static String getTime()
+    {
         Date date = new Date();
         date.getTime();
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         return formatter.format(date);
     }
 
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put(REFRESH_VARIABLE_NAME, String.valueOf(PERIOD_MS));
         pageVariables.put(TIME_VARIABLE_NAME, getTime());
