@@ -21,6 +21,7 @@
         <main.class>com.otus.hw02.myObjectSize.ObjectSizeDemo</main.class>
         <premain.class>com.otus.hw02.instrumentation.InstrumentationUtil</premain.class>
         <version.jol>0.9</version.jol>
+        <version.junit>4.12</version.junit>
         <version.maven-assembly-plugin>3.1.0</version.maven-assembly-plugin>
     </properties>
 
@@ -30,6 +31,13 @@
             <groupId>org.openjdk.jol</groupId>
             <artifactId>jol-core</artifactId>
             <version>${version.jol}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
