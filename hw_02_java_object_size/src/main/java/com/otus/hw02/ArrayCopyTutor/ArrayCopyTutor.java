@@ -60,10 +60,7 @@ public class ArrayCopyTutor
         if (position < 0 || position > animals_size - 1) {
             throw new ArrayIndexOutOfBoundsException();
         }
-
-        for (int i = position + 1; i < animals_size; i++) {
-            animals[i - 1] = animals[i];
-        }
+        System.arraycopy(animals, position + 1, animals, position, animals_size - position + 1);
         animals_size--;
     }
 
