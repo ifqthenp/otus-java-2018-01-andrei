@@ -2,6 +2,8 @@ package com.otus.hw02.StringTutor;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class StringTutor
@@ -9,6 +11,13 @@ public class StringTutor
     public static void log(String s)
     {
         System.out.println(s);
+    }
+
+    public static void main(String[] args)
+    {
+        StringTutor st = new StringTutor();
+
+        System.out.println(st.checkGreeting("kjk"));
     }
 
     /**
@@ -52,7 +61,22 @@ public class StringTutor
      */
     public boolean checkGreeting(String greeting)
     {
-        return true;
+        String[] decomposedGreeting = greeting.split("[,\\s!]+");
+
+        if (decomposedGreeting.length != 3) {
+            return false;
+        } else {
+
+            String firstName = decomposedGreeting[1];
+            String lastName = decomposedGreeting[2];
+
+            return greeting.startsWith("Привет,")
+                    && greeting.endsWith("!")
+                    && firstName.length() >= 3
+                    && !Character.isLowerCase(firstName.codePointAt(0))
+                    && lastName.length() >= 3
+                    && !Character.isLowerCase(lastName.codePointAt(0));
+        }
     }
 
     @Test
