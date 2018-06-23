@@ -2,7 +2,8 @@ package com.otus.hw02.StringTutor;
 
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -61,22 +62,12 @@ public class StringTutor
      */
     public boolean checkGreeting(String greeting)
     {
-        String[] decomposedGreeting = greeting.split("[,\\s!]+");
-
-        if (decomposedGreeting.length != 3) {
-            return false;
-        } else {
-
-            String firstName = decomposedGreeting[1];
-            String lastName = decomposedGreeting[2];
-
-            return greeting.startsWith("Привет,")
-                    && greeting.endsWith("!")
-                    && firstName.length() >= 3
-                    && !Character.isLowerCase(firstName.codePointAt(0))
-                    && lastName.length() >= 3
-                    && !Character.isLowerCase(lastName.codePointAt(0));
-        }
+        Pattern p = Pattern.compile(
+                "^Привет,\\s*?(\\p{Lu}\\w{2,})\\s+?(\\p{Lu}\\w{2,})\\s*?!$",
+                Pattern.UNICODE_CHARACTER_CLASS
+        );
+        Matcher m = p.matcher(greeting);
+        return m.matches();
     }
 
     @Test
