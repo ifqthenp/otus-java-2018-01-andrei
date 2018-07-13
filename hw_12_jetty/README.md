@@ -8,12 +8,6 @@ Create admin login page that would allow administrator to view the parameters an
 
 ### How to get application running
 
-Install [Docker](https://www.docker.com/community-edition) and run
-
-```shell
-docker-compose up -d
-```
-
 clone application to your computer
 
 ```shell
@@ -23,13 +17,25 @@ git clone -b master https://github.com/ifqthenp/otus-java-2018-01-andrei.git
 `cd` into module folder
 
 ```shell
-cd hw_12_jetty
+cd otus-java-2018-01-andrei/hw_12_jetty
 ```
 
-and type in the console
+and run MySQL database in Docker container 
+
+```shell
+docker-compose up -d
+```
+
+then build a `jar` and start application
 
 ```shell
 mvn clean package && java -jar target/hw_12_jetty.jar
+```
+
+type in your browser's URL bar
+
+```text
+http://localhost:8090/
 ```
 
 or simply run the program from your IDE.
