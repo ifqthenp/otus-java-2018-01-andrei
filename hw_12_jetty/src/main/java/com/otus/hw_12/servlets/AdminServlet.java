@@ -29,6 +29,22 @@ public class AdminServlet extends HttpServlet
         this(new TemplateProcessor());
     }
 
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        String page;
+        if (request.getSession().getAttribute("login") != null && request.getSession().getAttribute("password") != null) {
+            Map<String, Object> cacheStats = getCacheStats();
+            page = templateProcessor.getPage(ADMIN_CACHE_PAGE_TEMPLATE, cacheStats);
+        } else {
+            Map<String, Object> pageVariables = createPageVariablesMap(request);
+            page = templateProcessor.getPage(ADMIN_PAGE_TEMPLATE, pageVariables);
+        }
+
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().println(page);
+    }
+
     private static Map<String, Object> getCacheStats()
     {
         final Map<String, Object> result = new LinkedHashMap<>();
@@ -91,21 +107,5 @@ public class AdminServlet extends HttpServlet
         pageVariables.put("login", login != null ? login : DEFAULT_USER_NAME);
 
         return pageVariables;
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        String page;
-        if (request.getSession().getAttribute("login") != null && request.getSession().getAttribute("password") != null) {
-            Map<String, Object> cacheStats = getCacheStats();
-            page = templateProcessor.getPage(ADMIN_CACHE_PAGE_TEMPLATE, cacheStats);
-        } else {
-            Map<String, Object> pageVariables = createPageVariablesMap(request);
-            page = templateProcessor.getPage(ADMIN_PAGE_TEMPLATE, pageVariables);
-        }
-
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println(page);
     }
 }
