@@ -11,16 +11,19 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.ServletContextListener;
+import java.util.Objects;
 
 public class Main
 {
     private final static int PORT = 8090;
-    private final static String PUBLIC_HTML = "hw_12_jetty/public_html";
 
     public static void main(String[] args) throws Exception
     {
+        final String webDir = Objects.requireNonNull(ClassLoader.getSystemClassLoader()
+                .getResource("public_html")).toExternalForm();
+
         ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setResourceBase(PUBLIC_HTML);
+        resourceHandler.setResourceBase(webDir);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         TemplateProcessor templateProcessor = new TemplateProcessor();

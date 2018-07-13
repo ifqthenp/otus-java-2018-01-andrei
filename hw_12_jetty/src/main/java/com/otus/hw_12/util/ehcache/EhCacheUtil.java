@@ -43,10 +43,4 @@ public class EhCacheUtil
     {
         return this.manager.getCache(USER_DATASET_CACHE_NAME, Long.class, UserDataSet.class);
     }
-
-    public static String getCacheStatsObjectName()
-    {
-        final String path = new EhCacheUtil().getCacheManager().getURI().getPath();
-        return "javax.cache:type=CacheStatistics,CacheManager=file." + path + ",Cache=" + USER_DATASET_CACHE_NAME;
-    }
 }

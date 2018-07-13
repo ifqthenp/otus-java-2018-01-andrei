@@ -1,19 +1,13 @@
 package com.otus.hw_12.servlets;
 
-import com.otus.hw_12.util.ehcache.EhCacheUtil;
-
-import javax.management.MBeanAttributeInfo;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
+import javax.management.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AdminServlet extends HttpServlet
 {
@@ -41,8 +35,8 @@ public class AdminServlet extends HttpServlet
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
         try {
-            final String mBeanObjectName = EhCacheUtil.getCacheStatsObjectName();
-            final ObjectName objectName = new ObjectName(mBeanObjectName);
+            final String mBeanObjectName = getCacheMBeanObjectName(mbs);
+            final ObjectName objectName = new ObjectName(Objects.requireNonNull(mBeanObjectName));
             if (mbs.isRegistered(objectName)) {
                 MBeanAttributeInfo[] cacheInfo = mbs.getMBeanInfo(objectName).getAttributes();
                 for (final MBeanAttributeInfo mBeanAttributeInfo : cacheInfo) {
@@ -51,11 +45,36 @@ public class AdminServlet extends HttpServlet
                 }
             }
         }
-        catch (Exception e) {
+        catch (ReflectionException | InstanceNotFoundException |
+                IntrospectionException | AttributeNotFoundException |
+                MBeanException | MalformedObjectNameException e) {
             e.printStackTrace();
         }
 
         return result;
+    }
+
+    private static String getCacheMBeanObjectName(final MBeanServer mbs)
+    {
+        Set<ObjectName> objectNameSet = null;
+
+        try {
+            objectNameSet = mbs.queryNames(new ObjectName("javax.cache:type=CacheStatistics,*,Cache=userDataSetCache"), null);
+        }
+        catch (MalformedObjectNameException e) {
+            e.printStackTrace();
+        }
+
+        Iterator<ObjectName> it = Objects.requireNonNull(objectNameSet).iterator();
+        String mBeanObjectName = null;
+        final String cacheNameNeeded = "Cache=userDataSetCache";
+        while (it.hasNext()) {
+            String objectNameFromSet = it.next().toString();
+            if (objectNameFromSet.endsWith(cacheNameNeeded)) {
+                mBeanObjectName = objectNameFromSet;
+            }
+        }
+        return mBeanObjectName;
     }
 
     private static Map<String, Object> createPageVariablesMap(HttpServletRequest request)
