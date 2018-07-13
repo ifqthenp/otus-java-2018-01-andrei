@@ -20,12 +20,11 @@
 
         <main.class>com.otus.hw_12.main.Main</main.class>
 
+        <dep.ver.cache-api>1.1.0</dep.ver.cache-api>
         <dep.ver.ehcache>3.5.2</dep.ver.ehcache>
         <dep.ver.jetty-server>9.4.10.v20180503</dep.ver.jetty-server>
         <dep.ver.jetty-webapp>9.4.10.v20180503</dep.ver.jetty-webapp>
         <dep.ver.freemarker>2.3.28</dep.ver.freemarker>
-        <dep.ver.spock>1.1-groovy-2.4</dep.ver.spock>
-        <dep.ver.groovy>2.4.15</dep.ver.groovy>
         <dep.ver.mysql-connector-java>8.0.11</dep.ver.mysql-connector-java>
         <dep.ver.hibernate-core>5.2.17.Final</dep.ver.hibernate-core>
         <dep.ver.hibernate-hikaricp>5.2.17.Final</dep.ver.hibernate-hikaricp>
@@ -38,6 +37,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${dep.ver.cache-api}</version>
+        </dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -57,17 +61,6 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>${dep.ver.freemarker}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>${dep.ver.spock}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${dep.ver.groovy}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -122,29 +115,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>${plg.ver.gmavenplus}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compileTests</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${plg.ver.maven-surefire}</version>
-                <configuration>
-                    <useFile>false</useFile>
-                    <includes>
-                        <include>**/*Spec.java</include>
-                    </includes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

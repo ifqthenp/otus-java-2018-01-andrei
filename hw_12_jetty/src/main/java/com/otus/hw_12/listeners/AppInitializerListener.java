@@ -1,27 +1,39 @@
-package com.otus.hw_12.main;
+package com.otus.hw_12.listeners;
 
 import com.otus.hw_12.dbService.DBService;
 import com.otus.hw_12.dbService.DBServiceImpl;
 import com.otus.hw_12.entities.dataset.AddressDataSet;
 import com.otus.hw_12.entities.dataset.PhoneDataSet;
 import com.otus.hw_12.entities.dataset.UserDataSet;
+import com.otus.hw_12.util.ehcache.EhCacheUtil;
 
+import javax.cache.Cache;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class App
+@WebListener
+public class AppInitializerListener implements ServletContextListener
 {
-    public static void main(String[] args)
+    private DBService dbService;
+
+    @Override
+    public void contextInitialized(final ServletContextEvent sce)
     {
         try {
-            DBService dbService = new DBServiceImpl();
+            Cache<Long, UserDataSet> cache = new EhCacheUtil().getUserDataSetCache();
+
+            dbService = new DBServiceImpl(cache);
+
             String status = dbService.getLocalStatus();
             System.out.println("Status: " + status);
 
             List<AddressDataSet> addresses = getAddressList();
 
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 11; i++) {
                 dbService.save(getUser("user" + i, addresses.get(new Random().nextInt(5))));
             }
 
@@ -31,22 +43,21 @@ public class App
 
             dbService.save(user5);
 
-            List<UserDataSet> dataSets = dbService.readAll();
-            for (UserDataSet el : dataSets) {
-                System.out.println(el);
-            }
-
             UserDataSet aUser = dbService.readByName("Andrew");
-            System.out.println(aUser);
 
-            List<Long> userIds = dbService.readAllIds();
-            System.out.println(userIds);
-
-            dbService.shutdown();
+            user5 = dbService.read(5);
+            UserDataSet user6 = dbService.read(6);
+            UserDataSet user7 = dbService.read(7);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void contextDestroyed(final ServletContextEvent sce)
+    {
+        dbService.shutdown();
     }
 
     public static UserDataSet getUser(final String name, final AddressDataSet address)

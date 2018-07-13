@@ -1,15 +1,14 @@
 package com.otus.hw_12.dbService;
 
-import com.otus.hw_12.cache.CacheEngine;
-import com.otus.hw_12.cache.CacheEngineImp;
-import com.otus.hw_12.cache.MyElement;
 import com.otus.hw_12.entities.dataset.UserDataSet;
-import com.otus.hw_12.util.HibernateUtil;
+import com.otus.hw_12.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import javax.cache.Cache;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -17,7 +16,12 @@ public class DBServiceImpl implements DBService
 {
     private final static int INITIAL_ID = -1;
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    private final CacheEngine<Long, UserDataSet> cache = new CacheEngineImp<>(10, 0, 0, true);
+    private final Cache<Long, UserDataSet> cache;
+
+    public DBServiceImpl(final Cache<Long, UserDataSet> cache)
+    {
+        this.cache = Objects.requireNonNull(cache);
+    }
 
     public String getLocalStatus()
     {
@@ -26,32 +30,33 @@ public class DBServiceImpl implements DBService
 
     public void save(UserDataSet dataSet)
     {
-        long dataSetKey = dataSet.getId();
-        if (dataSetKey == INITIAL_ID) {
-            long insertedId = runInSession(session -> {
+        long existingId = dataSet.getId();
+        if (existingId == INITIAL_ID) {
+            long generatedId = runInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 return dao.save(dataSet);
             });
-            putInCache(new MyElement(insertedId, dataSet));
+            putInCache(generatedId, dataSet);
         } else {
             updateInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 dao.update(dataSet);
             });
-            putInCache(new MyElement(dataSetKey, dataSet));
+            putInCache(existingId, dataSet);
         }
     }
 
     public UserDataSet read(long id)
     {
-        if (cache.get(id) == null) {
-            UserDataSet user = runInSession(session -> {
+        UserDataSet user = cache.get(id);
+        if (user == null) {
+            user = runInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 return dao.read(id);
             });
-            putInCache(new MyElement<>(user.getId(), user));
+            putInCache(user.getId(), user);
         }
-        return cache.get(id).getValue();
+        return user;
     }
 
     public UserDataSet readByName(String name)
@@ -60,7 +65,7 @@ public class DBServiceImpl implements DBService
             UserDataSetDAO dao = new UserDataSetDAO(session);
             UserDataSet userDataSet = dao.readByName(name);
             if (userDataSet != null) {
-                putInCache(new MyElement(userDataSet.getId(), userDataSet));
+                putInCache(userDataSet.getId(), userDataSet);
             }
             return userDataSet;
         });
@@ -72,7 +77,7 @@ public class DBServiceImpl implements DBService
             UserDataSetDAO dao = new UserDataSetDAO(session);
             return dao.readAll();
         });
-        users.forEach(user -> putInCache(new MyElement<>(user.getId(), user)));
+        users.forEach(user -> putInCache(user.getId(), user));
         return users;
     }
 
@@ -87,12 +92,11 @@ public class DBServiceImpl implements DBService
     public void shutdown()
     {
         sessionFactory.close();
-        cache.dispose();
     }
 
-    private void putInCache(MyElement<Long, UserDataSet> element)
+    private void putInCache(final Long key, final UserDataSet value)
     {
-        cache.put(element);
+        cache.put(key, value);
     }
 
     private <R> R runInSession(Function<Session, R> function)

@@ -83,9 +83,9 @@ public class UserDataSet extends DataSet
         if (o == null || getClass() != o.getClass()) return false;
         final UserDataSet that = (UserDataSet) o;
         return getId() == that.getId() && age == that.age &&
-            Objects.equals(name, that.name) &&
-            Objects.equals(address, that.address) &&
-            Objects.equals(phoneNumbers, that.phoneNumbers);
+                Objects.equals(name, that.name) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(phoneNumbers, that.phoneNumbers);
     }
 
     @Override
@@ -98,12 +98,12 @@ public class UserDataSet extends DataSet
     public String toString()
     {
         return "UserDataSet{" +
-            "id='" + getId() + '\'' +
-            ", name='" + name + '\'' +
-            ", age='" + age + '\'' +
-            ", address=" + address +
-            ", phoneNumbers=" + phoneNumbers +
-            '}';
+                "id='" + getId() + '\'' +
+                ", name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", address=" + address +
+                ", phoneNumbers=" + phoneNumbers +
+                '}';
     }
 }
 

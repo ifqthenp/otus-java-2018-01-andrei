@@ -1,131 +1,44 @@
 package com.otus.hw_12.main;
 
+import com.otus.hw_12.listeners.AppInitializerListener;
+import com.otus.hw_12.servlets.AdminServlet;
+import com.otus.hw_12.servlets.LoginServlet;
+import com.otus.hw_12.servlets.TemplateProcessor;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 
-import com.otus.hw_12.dbService.DBService;
-import com.otus.hw_12.dbService.DBServiceImpl;
-import com.otus.hw_12.entities.dataset.AddressDataSet;
-import com.otus.hw_12.entities.dataset.PhoneDataSet;
-import com.otus.hw_12.entities.dataset.UserDataSet;
-
-import java.util.List;
+import javax.servlet.ServletContextListener;
+import java.util.Objects;
 
 public class Main
 {
-    public static void main(String[] args)
+    private final static int PORT = 8090;
+
+    public static void main(String[] args) throws Exception
     {
-        try {
-            DBService dbService = new DBServiceImpl();
-            String status = dbService.getLocalStatus();
-            System.out.println("Status: " + status);
+        final String webDir = Objects.requireNonNull(ClassLoader.getSystemClassLoader()
+                .getResource("public_html")).toExternalForm();
 
-            AddressDataSet brickLane = new AddressDataSet("Brick Lane");
-            AddressDataSet oldStreet = new AddressDataSet("Old Str");
-            AddressDataSet liverpoolStreet = new AddressDataSet("Liverpool Str");
-            AddressDataSet chelsea = new AddressDataSet("Chelsea");
-            AddressDataSet bristol = new AddressDataSet("Bristol");
+        ResourceHandler resourceHandler = new ResourceHandler();
+        resourceHandler.setResourceBase(webDir);
 
-            UserDataSet carl = getCarl(chelsea);
-            UserDataSet harry = getHarry(oldStreet);
-            UserDataSet tony = getTony(brickLane);
-            UserDataSet joe = getJoe(bristol);
-            UserDataSet johnny = getJohnny(liverpoolStreet);
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        TemplateProcessor templateProcessor = new TemplateProcessor();
 
-            dbService.save(carl);
-            dbService.save(johnny);
-            dbService.save(tony);
-            dbService.save(joe);
-            dbService.save(johnny);
+        context.addServlet(new ServletHolder(new LoginServlet(templateProcessor, "anonymous")), "/login");
+        context.addServlet(AdminServlet.class, "/admin");
 
-            dbService.save(carl);
-            dbService.save(harry);
-            dbService.save(tony);
-            dbService.save(joe);
-            dbService.save(johnny);
+        // Initialize DBService
+        ServletContextListener scl = new AppInitializerListener();
+        context.addEventListener(scl);
 
-            carl = dbService.read(1);
-            System.out.println("Read by ID: " + carl);
+        Server server = new Server(PORT);
+        server.setHandler(new HandlerList(resourceHandler, context));
 
-            harry = dbService.read(2);
-            System.out.println("Read by ID: " + harry);
-
-            tony = dbService.read(3);
-            System.out.println("Read by ID: " + tony);
-
-            carl = dbService.readByName("Carl Cracker");
-            System.out.println("Read by name: " + carl);
-
-            harry = dbService.readByName("Harry Hacker");
-            System.out.println("Read by name: " + harry);
-
-            tony = dbService.readByName("tony");
-            System.out.println("Read by name: " + tony);
-
-            System.out.println("\nRead all from list: ");
-            List<UserDataSet> dataSets = dbService.readAll();
-
-            dataSets.forEach(u -> System.out.printf("%d %s %d %s %s %n", u.getId(), u.getName(), u.getAge(), u.getAddressDataSet(), u.getPhoneNumbers()));
-            System.out.println();
-
-            List<Long> ids = dbService.readAllIds();
-            System.out.println(ids);
-
-            dbService.shutdown();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static UserDataSet getCarl(final AddressDataSet address)
-    {
-        UserDataSet carl = new UserDataSet();
-        carl.setName("Carl Cracker");
-        carl.setAge(18);
-        carl.addAddress(address);
-        carl.addPhoneNumber(new PhoneDataSet("01632 555888"));
-        carl.addPhoneNumber(new PhoneDataSet("01632 000999"));
-        carl.addPhoneNumber(new PhoneDataSet("01632 444777"));
-        return carl;
-    }
-
-    private static UserDataSet getHarry(final AddressDataSet address)
-    {
-        UserDataSet harry = new UserDataSet();
-        harry.setName("Harry Hacker");
-        harry.setAge(24);
-        harry.addAddress(address);
-        harry.addPhoneNumber(new PhoneDataSet("01632 111222"));
-        harry.addPhoneNumber(new PhoneDataSet("01632 333444"));
-        return harry;
-    }
-
-    private static UserDataSet getTony(final AddressDataSet address)
-    {
-        UserDataSet tony = new UserDataSet();
-        tony.setName("Tony Tester");
-        tony.setAge(20);
-        tony.addAddress(address);
-        tony.addPhoneNumber(new PhoneDataSet("01632 777999"));
-        return tony;
-    }
-
-    private static UserDataSet getJoe(final AddressDataSet address)
-    {
-        UserDataSet joe = new UserDataSet();
-        joe.setName("Dodgy Joe");
-        joe.setAge(31);
-        joe.addAddress(address);
-        joe.addPhoneNumber(new PhoneDataSet(null));
-        return joe;
-    }
-
-    private static UserDataSet getJohnny(final AddressDataSet address)
-    {
-        UserDataSet johnny = new UserDataSet();
-        johnny.setName("Johnny FooBar");
-        johnny.setAge(25);
-        johnny.addAddress(address);
-        johnny.addPhoneNumber(new PhoneDataSet("01632 000111"));
-        return johnny;
+        server.start();
+        server.join();
     }
 }
