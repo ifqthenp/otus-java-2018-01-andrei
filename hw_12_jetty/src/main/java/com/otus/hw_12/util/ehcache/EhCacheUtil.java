@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 public class EhCacheUtil
 {
     private final static String XML_CONFIG = "/ehcache.xml";
+    private final static String USER_DATASET_CACHE_NAME = "userDataSetCache";
     private final CachingProvider provider;
     private final CacheManager manager;
 
@@ -40,6 +41,12 @@ public class EhCacheUtil
 
     public Cache<Long, UserDataSet> getUserDataSetCache()
     {
-        return this.manager.getCache("userDataSetCache", Long.class, UserDataSet.class);
+        return this.manager.getCache(USER_DATASET_CACHE_NAME, Long.class, UserDataSet.class);
+    }
+
+    public static String getCacheStatsObjectName()
+    {
+        final String path = new EhCacheUtil().getCacheManager().getURI().getPath();
+        return "javax.cache:type=CacheStatistics,CacheManager=file." + path + ",Cache=" + USER_DATASET_CACHE_NAME;
     }
 }

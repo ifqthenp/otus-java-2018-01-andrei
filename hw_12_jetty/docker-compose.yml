@@ -11,3 +11,7 @@ services:
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'user'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - hw_12:/var/lib/mysql
+volumes:
+  hw_12:

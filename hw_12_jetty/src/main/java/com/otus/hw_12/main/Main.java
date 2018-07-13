@@ -1,10 +1,16 @@
-package com.otus.hw_12.servlet;
+package com.otus.hw_12.main;
 
+import com.otus.hw_12.listeners.AppInitializerListener;
+import com.otus.hw_12.servlets.AdminServlet;
+import com.otus.hw_12.servlets.LoginServlet;
+import com.otus.hw_12.servlets.TemplateProcessor;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+
+import javax.servlet.ServletContextListener;
 
 public class Main
 {
@@ -21,7 +27,10 @@ public class Main
 
         context.addServlet(new ServletHolder(new LoginServlet(templateProcessor, "anonymous")), "/login");
         context.addServlet(AdminServlet.class, "/admin");
-        context.addServlet(TimerServlet.class, "/timer");
+
+        // Initialize DBService
+        ServletContextListener scl = new AppInitializerListener();
+        context.addEventListener(scl);
 
         Server server = new Server(PORT);
         server.setHandler(new HandlerList(resourceHandler, context));
