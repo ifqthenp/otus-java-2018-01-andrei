@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.otus.2018_01</groupId>
+    <artifactId>hw_13_webapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>hw_13_webapp</name>
+    <description>Homework 13 Spring Dependency Injection</description>
+    <url>https://github.com/ifqthenp/otus-java-2018-01-andrei/tree/master/hw_13_webapp</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <dep.ver.spring-one-for-all>5.0.7.RELEASE</dep.ver.spring-one-for-all>
+        <dep.ver.servlet-api>4.0.1</dep.ver.servlet-api>
+        <dep.ver.cache-api>1.1.0</dep.ver.cache-api>
+        <dep.ver.ehcache>3.5.2</dep.ver.ehcache>
+        <dep.ver.freemarker>2.3.28</dep.ver.freemarker>
+        <dep.ver.mysql-connector-java>8.0.11</dep.ver.mysql-connector-java>
+        <dep.ver.hibernate-core>5.2.17.Final</dep.ver.hibernate-core>
+        <dep.ver.hibernate-hikaricp>5.2.17.Final</dep.ver.hibernate-hikaricp>
+        <dep.ver.slf4j-api>1.7.25</dep.ver.slf4j-api>
+        <dep.ver.slf4j-log4j12>1.7.25</dep.ver.slf4j-log4j12>
+
+        <plg.ver.maven-war>3.2.2</plg.ver.maven-war>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${dep.ver.spring-one-for-all}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${dep.ver.servlet-api}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${dep.ver.cache-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${dep.ver.ehcache}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${dep.ver.freemarker}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${dep.ver.mysql-connector-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${dep.ver.hibernate-core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-hikaricp</artifactId>
+            <version>${dep.ver.hibernate-hikaricp}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${dep.ver.slf4j-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${dep.ver.slf4j-log4j12}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${plg.ver.maven-war}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
