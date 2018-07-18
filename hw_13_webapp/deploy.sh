@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-docker-compose up -d
-
-sleep 2
-
 mvn clean package
 
 # linux
