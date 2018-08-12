@@ -8,6 +8,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
     <title>Admin Page</title>
 </head>
 <body>
@@ -40,7 +41,14 @@
     </div>
 
     <div class="container">
+
         <div class="row">
+            <div class="col">
+                <form action="get">
+
+                </form>
+            </div>
+
             <div class="col">
                 <table class="table">
                     <thead class="thead-light">
