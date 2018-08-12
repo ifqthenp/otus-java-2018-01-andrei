@@ -45,6 +45,7 @@
                 <table class="table">
                     <thead class="thead-light">
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Parameter</th>
                         <th scope="col">Value</th>
                     </tr>
@@ -53,6 +54,7 @@
                     <tbody>
                           <#list stats as propName, propValue>
                           <tr>
+                              <th scope="row">${propName?index+1}</th>
                               <td>${propName}</td>
                               <td>${propValue}</td>
                           </tr>
