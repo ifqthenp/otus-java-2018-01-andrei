@@ -1,6 +1,6 @@
 package com.otus.hw_15.servlets;
 
-import com.otus.hw_15.websocket.MsgWebSocketCreator;
+import com.otus.hw_15.services.frontendService.websocket.MsgWebSocketCreator;
 import com.otus.hw_15.services.frontendService.FrontendService;
 import com.otus.hw_15.util.mbeans.MBeansUtil;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;

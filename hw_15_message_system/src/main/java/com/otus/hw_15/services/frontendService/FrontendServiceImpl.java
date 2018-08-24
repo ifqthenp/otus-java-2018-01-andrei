@@ -4,8 +4,8 @@ import com.otus.hw_15.entities.dataset.UserDataSet;
 import com.otus.hw_15.messageSystem.Address;
 import com.otus.hw_15.messageSystem.Message;
 import com.otus.hw_15.messageSystem.MessageSystem;
-import com.otus.hw_15.messages.MsgGetUserById;
-import com.otus.hw_15.websocket.MsgWebSocketHandler;
+import com.otus.hw_15.services.frontendService.messages.MsgGetUserById;
+import com.otus.hw_15.services.frontendService.websocket.MsgWebSocketHandler;
 import com.otus.hw_15.services.messageSystemContextService.MessageSystemContext;
 
 import java.util.Objects;

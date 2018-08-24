@@ -33,6 +33,6 @@
     </bean>
 
     <bean id="msgWebSocketHandler"
-          class="com.otus.hw_15.websocket.MsgWebSocketHandler"/>
+          class="com.otus.hw_15.services.frontendService.websocket.MsgWebSocketHandler"/>
 
 </beans>

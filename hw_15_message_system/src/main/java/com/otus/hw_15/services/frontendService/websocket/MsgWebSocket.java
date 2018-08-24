@@ -1,4 +1,4 @@
-package com.otus.hw_15.websocket;
+package com.otus.hw_15.services.frontendService.websocket;
 
 import com.otus.hw_15.services.frontendService.FrontendService;
 import org.eclipse.jetty.websocket.api.Session;
