@@ -1,9 +1,13 @@
 package com.otus.hw_15.listeners;
 
-import com.otus.hw_15.dbService.DBService;
+import com.otus.hw_15.messageSystem.Address;
+import com.otus.hw_15.messageSystem.MessageSystem;
+import com.otus.hw_15.services.dbService.DBService;
 import com.otus.hw_15.entities.dataset.AddressDataSet;
 import com.otus.hw_15.entities.dataset.PhoneDataSet;
 import com.otus.hw_15.entities.dataset.UserDataSet;
+import com.otus.hw_15.services.frontendService.FrontendService;
+import com.otus.hw_15.services.messageSystemContextService.MessageSystemContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,41 +21,42 @@ import java.util.Random;
 @WebListener
 public class AppInitializerListener implements ServletContextListener
 {
+    private MessageSystem messageSystem;
+    private MessageSystemContext messageSystemContext;
     private DBService dbService;
+    private FrontendService frontendService;
 
     @Override
     public void contextInitialized(final ServletContextEvent sce)
     {
-        final ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
+        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
         sce.getServletContext().setAttribute("applicationContext", ac);
+
+        this.messageSystem = ac.getBean(MessageSystem.class);
+        this.messageSystemContext = ac.getBean(MessageSystemContext.class);
+
+        Address frontAddress = new Address("FRONT");
+        messageSystemContext.setFrontAddress(frontAddress);
+        Address dbAddress = new Address("DB");
+        messageSystemContext.setDbAddress(dbAddress);
+
+        this.frontendService = ac.getBean(FrontendService.class);
         this.dbService = ac.getBean(DBService.class);
 
-        String status = dbService.getLocalStatus();
-        System.out.println(">>>>> DBService Status: " + status);
+        dbService.init();
+        frontendService.init();
 
         List<AddressDataSet> addresses = getAddressList();
-
         for (int i = 0; i < 11; i++) {
             dbService.save(getUser("user" + i, addresses.get(new Random().nextInt(5))));
         }
 
-        UserDataSet user5 = dbService.read(5);
-        user5.addAddress(new AddressDataSet("Scotland"));
-        user5.setName("Andrew");
-
-        dbService.save(user5);
-
-        UserDataSet aUser = dbService.readByName("Andrew");
-
-        user5 = dbService.read(5);
-        UserDataSet user6 = dbService.read(6);
-        UserDataSet user7 = dbService.read(7);
+        messageSystem.start();
     }
 
     @Override
     public void contextDestroyed(final ServletContextEvent sce)
     {
-        dbService.shutdown();
     }
 
     public static UserDataSet getUser(final String name, final AddressDataSet address)

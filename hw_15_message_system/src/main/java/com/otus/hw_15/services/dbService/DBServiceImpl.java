@@ -1,7 +1,10 @@
-package com.otus.hw_15.dbService;
+package com.otus.hw_15.services.dbService;
 
-import com.otus.hw_15.cacheService.CacheService;
+import com.otus.hw_15.services.cacheService.CacheService;
 import com.otus.hw_15.entities.dataset.UserDataSet;
+import com.otus.hw_15.messageSystem.Address;
+import com.otus.hw_15.messageSystem.MessageSystem;
+import com.otus.hw_15.services.messageSystemContextService.MessageSystemContext;
 import com.otus.hw_15.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,13 +18,23 @@ import java.util.function.Function;
 
 public class DBServiceImpl implements DBService
 {
+    private final Address address;
+    private final MessageSystemContext context;
+
     private final static int INITIAL_ID = -1;
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private final Cache<Long, UserDataSet> cache;
 
-    public DBServiceImpl(final CacheService cacheService)
+    public DBServiceImpl(final Address address, final MessageSystemContext context, final CacheService cacheService)
     {
+        this.address = address;
+        this.context = context;
         this.cache = Objects.requireNonNull(cacheService.getUserDataSetCache());
+    }
+
+    @Override
+    public void init() {
+        context.getMessageSystem().addAddressee(this);
     }
 
     public String getLocalStatus()
@@ -93,6 +106,16 @@ public class DBServiceImpl implements DBService
     public void shutdown()
     {
         sessionFactory.close();
+    }
+
+    @Override
+    public Address getAddress() {
+        return this.address;
+    }
+
+    @Override
+    public MessageSystem getMessageSystemFromContext() {
+        return this.context.getMessageSystem();
     }
 
     private void putInCache(final Long key, final UserDataSet value)

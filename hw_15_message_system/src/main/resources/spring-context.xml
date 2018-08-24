@@ -5,11 +5,34 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="cacheService"
-          class="com.otus.hw_15.cacheService.CacheServiceImpl"/>
+          class="com.otus.hw_15.services.cacheService.CacheServiceImpl"/>
+
+    <bean id="messageSystem"
+          class="com.otus.hw_15.messageSystem.MessageSystem"/>
+
+    <bean id="messageSystemContext"
+          class="com.otus.hw_15.services.messageSystemContextService.MessageSystemContextImpl">
+        <constructor-arg ref="messageSystem" name="messageSystem"/>
+    </bean>
+
+    <bean id="address"
+          class="com.otus.hw_15.messageSystem.Address"/>
 
     <bean id="dbService"
-          class="com.otus.hw_15.dbService.DBServiceImpl">
-        <constructor-arg name="cacheService" ref="cacheService"/>
+          class="com.otus.hw_15.services.dbService.DBServiceImpl">
+        <constructor-arg index="0" value="DB"/>
+        <constructor-arg index="1" ref="messageSystemContext"/>
+        <constructor-arg index="2" ref="cacheService"/>
     </bean>
+
+    <bean id="frontendService"
+          class="com.otus.hw_15.services.frontendService.FrontendServiceImpl">
+        <constructor-arg index="0" value="FRONT"/>
+        <constructor-arg index="1" ref="messageSystemContext"/>
+        <constructor-arg index="2" ref="msgWebSocketHandler"/>
+    </bean>
+
+    <bean id="msgWebSocketHandler"
+          class="com.otus.hw_15.services.frontendService.websocket.MsgWebSocketHandler"/>
 
 </beans>

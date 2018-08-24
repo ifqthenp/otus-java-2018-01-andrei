@@ -1,4 +1,4 @@
-package com.otus.hw_15.dbService;
+package com.otus.hw_15.services.dbService;
 
 import com.otus.hw_15.entities.dataset.UserDataSet;
 import org.hibernate.Session;

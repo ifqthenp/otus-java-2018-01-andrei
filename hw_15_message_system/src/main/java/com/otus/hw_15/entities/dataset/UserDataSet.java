@@ -1,5 +1,7 @@
 package com.otus.hw_15.entities.dataset;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +12,20 @@ import java.util.Objects;
 public class UserDataSet extends DataSet
 {
     @Column(name = "NAME", nullable = false)
+    @Expose
     private String name;
 
     @Column(name = "AGE")
+    @Expose
     private int age;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")
+    @Expose
     private AddressDataSet address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userDataSet", fetch = FetchType.LAZY)
+    @Expose
     private List<PhoneDataSet> phoneNumbers = new ArrayList<>();
 
     /* Helper method for bidirectional One-To-One association */

@@ -20,6 +20,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <dep.ver.spring-one-for-all>5.0.8.RELEASE</dep.ver.spring-one-for-all>
+        <dep.ver.gson>2.8.5</dep.ver.gson>
         <dep.ver.servlet-api>4.0.1</dep.ver.servlet-api>
         <dep.ver.cache-api>1.1.0</dep.ver.cache-api>
         <dep.ver.ehcache>3.5.2</dep.ver.ehcache>
@@ -36,6 +37,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${dep.ver.gson}</version>
+        </dependency>
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
             <artifactId>websocket-api</artifactId>
