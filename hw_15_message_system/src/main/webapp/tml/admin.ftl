@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script type="text/javascript" src="js/ws.js"></script>
     <title>Admin Page</title>
 </head>
 <body>
@@ -44,9 +45,16 @@
 
         <div class="row">
             <div class="col">
-                <form action="get">
-
-                </form>
+                <div class="row">
+                    <h3>Websocket Test</h3>
+                </div>
+                <div class="row">
+                    <form action="">
+                        <input onclick="webSocket.sendUserId()" value="Get user" type="button">
+                        <input id="userId" name="message" value="1" type="text"><br>
+                    </form>
+                </div>
+                <div class="row" id="output"></div>
             </div>
 
             <div class="col">
