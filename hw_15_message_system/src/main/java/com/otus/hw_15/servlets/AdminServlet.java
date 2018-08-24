@@ -16,7 +16,7 @@ import static com.otus.hw_15.servlets.SharedConstants.DEFAULT_PASSWORD;
 import static com.otus.hw_15.servlets.SharedConstants.DEFAULT_VISITOR;
 
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
-public class AdminServlet extends HttpServlet
+public class AdminServlet extends WebSocketServlet
 {
     public void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException
     {
@@ -34,6 +34,12 @@ public class AdminServlet extends HttpServlet
         req.setAttribute("visitor", userName != null ? userName : DEFAULT_VISITOR);
         setOK(resp);
         req.getRequestDispatcher("/tml/admin.ftl").forward(req, resp);
+    }
+
+    @Override
+    public void configure(final WebSocketServletFactory webSocketServletFactory) {
+        webSocketServletFactory.getPolicy().setIdleTimeout(1_000_000);
+        webSocketServletFactory.setCreator(new MsgWebSocketCreator(this.frontendService));
     }
 
     private static Map<String, Object> createPageVariablesMap(HttpServletRequest request)
