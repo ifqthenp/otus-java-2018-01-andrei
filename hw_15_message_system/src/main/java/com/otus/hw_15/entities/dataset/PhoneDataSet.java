@@ -1,5 +1,7 @@
 package com.otus.hw_15.entities.dataset;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,6 +10,7 @@ import java.util.Objects;
 public class PhoneDataSet extends DataSet
 {
     @Column(name = "NUMBER")
+    @Expose
     private String number;
 
     @ManyToOne

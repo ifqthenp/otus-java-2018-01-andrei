@@ -1,5 +1,7 @@
 package com.otus.hw_15.entities.dataset;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -11,6 +13,7 @@ import java.util.Objects;
 public class AddressDataSet extends DataSet
 {
     @Column(name = "STREET")
+    @Expose
     private String street;
 
     @OneToOne(mappedBy = "address")
