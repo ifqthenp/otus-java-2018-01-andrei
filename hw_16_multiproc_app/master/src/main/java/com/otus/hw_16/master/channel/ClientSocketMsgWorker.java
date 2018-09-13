@@ -1,15 +1,13 @@
-package com.otus.hw_16.back;
-
-import com.otus.hw_16.master.channel.SocketMsgWorker;
+package com.otus.hw_16.master.channel;
 
 import java.io.IOException;
 import java.net.Socket;
 
-class ClientSocketMsgWorker extends SocketMsgWorker {
+public class ClientSocketMsgWorker extends SocketMsgWorker {
 
     private final Socket socket;
 
-    ClientSocketMsgWorker(String host, int port) throws IOException {
+    public ClientSocketMsgWorker(String host, int port) throws IOException {
         this(new Socket(host, port));
     }
 

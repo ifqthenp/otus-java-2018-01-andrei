@@ -2,6 +2,7 @@ package com.otus.hw_16.back;
 
 import com.otus.hw_16.back.util.DatabaseUtil;
 import com.otus.hw_16.master.app.Msg;
+import com.otus.hw_16.master.channel.ClientSocketMsgWorker;
 import com.otus.hw_16.master.channel.SocketMsgWorker;
 import com.otus.hw_16.master.messages.PingMsg;
 import org.slf4j.Logger;
