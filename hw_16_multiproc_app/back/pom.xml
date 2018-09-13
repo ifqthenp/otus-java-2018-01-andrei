@@ -29,7 +29,7 @@
         <dep.ver.slf4j-api>1.7.25</dep.ver.slf4j-api>
         <dep.ver.slf4j-log4j12>1.7.25</dep.ver.slf4j-log4j12>
 
-        <mainClass>com.otus.hw_16.backend.BackendMain</mainClass>
+        <mainClass>com.otus.hw_16.back.BackMain</mainClass>
     </properties>
 
     <dependencies>
