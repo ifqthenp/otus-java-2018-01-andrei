@@ -17,7 +17,8 @@ public class ServerMain {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class.getName());
 
-    private static final String CLIENT_START_COMMAND = "java -jar back/target/back.jar";
+    private static final String BACKEND_START_COMMAND = "java -jar back/target/back.jar";
+    private static final String FRONTEND_START_COMMAND = "cp front/target/front.war ${JETTY_HOME}/webapps/root.war";
     private static final int CLIENT_START_DELAY_SEC = 5;
 
     public static void main(String[] args) throws Exception {
@@ -26,7 +27,8 @@ public class ServerMain {
 
     private void start() throws Exception {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        startClient(executorService);
+        startClient(executorService, BACKEND_START_COMMAND);
+        startClient(executorService, FRONTEND_START_COMMAND);
 
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("ru.otus:type=Server");
@@ -38,10 +40,10 @@ public class ServerMain {
         executorService.shutdown();
     }
 
-    private void startClient(ScheduledExecutorService executorService) {
+    private void startClient(ScheduledExecutorService executorService, String command) {
         executorService.schedule(() -> {
             try {
-                new ProcessRunnerImpl().start(CLIENT_START_COMMAND);
+                new ProcessRunnerImpl().start(command);
             } catch (IOException e) {
                 logger.error(e.getMessage());
             }
