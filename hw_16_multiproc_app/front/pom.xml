@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.otus.2018_01</groupId>
+    <artifactId>front</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <name>front</name>
+    <description>Frontend</description>
+    <url>https://github.com/ifqthenp/otus-java-2018-01-andrei/tree/master/hw_16_multiproc_app/front</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <dep.ver.gson>2.8.5</dep.ver.gson>
+        <dep.ver.jetty>9.4.12.v20180830</dep.ver.jetty>
+        <dep.ver.spring>5.0.8.RELEASE</dep.ver.spring>
+        <dep.ver.servlet-api>4.0.1</dep.ver.servlet-api>
+        <dep.ver.freemarker>2.3.28</dep.ver.freemarker>
+        <dep.ver.slf4j-api>1.7.25</dep.ver.slf4j-api>
+        <dep.ver.slf4j-log4j12>1.7.25</dep.ver.slf4j-log4j12>
+
+        <plg.ver.maven-war>3.2.2</plg.ver.maven-war>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.otus.2018_01</groupId>
+            <artifactId>master</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${dep.ver.gson}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-api</artifactId>
+            <version>${dep.ver.jetty}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>${dep.ver.jetty}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${dep.ver.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${dep.ver.servlet-api}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${dep.ver.freemarker}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${dep.ver.slf4j-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${dep.ver.slf4j-log4j12}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${plg.ver.maven-war}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
