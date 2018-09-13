@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-mvn clean package
+JETTY_HOME=/opt/jetty/jetty-9.4.12
+
+mvn clean -pl front -pl master -pl back package
 
 # linux
-cp target/hw_15_message_system.war ${JETTY_HOME}/webapps/root.war
+# cp front/target/front.war ${JETTY_HOME}/webapps/root.war
 
-# windows
-# copy target\L13.1.3-spring.war c:\Apps\Jetty\webapps\root.war
