@@ -33,6 +33,7 @@ public class PingMsg extends Msg {
     public String toString() {
         return "PingMsg{" +
                 "time=" + this.time +
+                ", message='" + this.message + '\'' +
                 '}';
     }
 
