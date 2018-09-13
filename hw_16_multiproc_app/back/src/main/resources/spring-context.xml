@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cacheService"
+          class="com.otus.hw_16.back.cacheService.CacheServiceImpl"/>
+
+    <bean id="dbService"
+          class="com.otus.hw_16.back.dbService.DBServiceImpl">
+        <constructor-arg index="0" ref="cacheService"/>
+    </bean>
+
+</beans>
