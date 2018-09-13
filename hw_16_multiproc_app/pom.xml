@@ -8,6 +8,14 @@
     <artifactId>hw_16_multiproc_app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>front</module>
+        <module>master</module>
+        <module>back</module>
+    </modules>
+
     <name>hw_16_multiproc_app</name>
     <description>Homework 16 Multiprocess application</description>
     <url>https://github.com/ifqthenp/otus-java-2018-01-andrei/tree/master/hw_16_multiproc_app</url>
