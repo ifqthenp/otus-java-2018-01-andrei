@@ -11,4 +11,12 @@
 
     <bean id="msgWebSocketHandler"
           class="com.otus.hw_16.front.websocket.MsgWebSocketHandler"/>
+
+    <bean id="msgWorker"
+          class="com.otus.hw_16.master.channel.ClientSocketMsgWorker"
+          init-method="init">
+        <constructor-arg index="0" value="localhost"/>
+        <constructor-arg index="1" value="5050"/>
+    </bean>
+
 </beans>

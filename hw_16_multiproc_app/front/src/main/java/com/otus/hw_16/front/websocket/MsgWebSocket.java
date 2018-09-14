@@ -1,6 +1,7 @@
 package com.otus.hw_16.front.websocket;
 
 import com.otus.hw_16.front.frontendService.FrontendService;
+import com.otus.hw_16.master.app.MsgWorker;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -17,15 +18,17 @@ public class MsgWebSocket {
     private final static Logger logger = LoggerFactory.getLogger(MsgWebSocket.class.getName());
 
     private Session session;
+    private MsgWorker frontClient;
     private FrontendService frontendService;
 
-    public MsgWebSocket(final FrontendService frontendService) {
+    public MsgWebSocket(final FrontendService frontendService, final MsgWorker frontClient) {
+        this.frontClient = frontClient;
         this.frontendService = frontendService;
     }
 
     @OnWebSocketMessage
     public void onMessage(final String id) {
-        frontendService.handleRequest(id);
+        frontendService.handleRequest(id, frontClient);
         logger.info("Request for user ID {} has been sent", id);
     }
 
