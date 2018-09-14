@@ -19,7 +19,7 @@ public class MsgWebSocketCreator implements WebSocketCreator {
 
     @Override
     public Object createWebSocket(final ServletUpgradeRequest servletUpgradeRequest, final ServletUpgradeResponse servletUpgradeResponse) {
-        logger.info("Socket created");
+        logger.info("Websocket created");
         return new MsgWebSocket(frontendService);
     }
 
