@@ -19,8 +19,6 @@ public final class DatabaseUtil {
         for (int i = 0; i < 11; i++) {
             dbService.save(getUser("user" + i, addresses.get(new Random().nextInt(5))));
         }
-
-        dbService.shutdown();
     }
 
     public static UserDataSet getUser(final String name, final AddressDataSet address) {
