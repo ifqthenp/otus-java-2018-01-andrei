@@ -13,6 +13,8 @@ import java.util.concurrent.Executors;
 
 public class FrontendServiceImpl implements FrontendService {
 
+    private static final Logger logger = LoggerFactory.getLogger(FrontendServiceImpl.class.getName());
+
     private MsgWebSocketHandler msgWebSocketHandler;
 
     public FrontendServiceImpl(final MsgWebSocketHandler msgWebSocketHandler) {
