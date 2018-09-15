@@ -4,7 +4,6 @@ import com.otus.hw_16.back.util.DatabaseUtil;
 import com.otus.hw_16.master.app.Msg;
 import com.otus.hw_16.master.channel.ClientSocketMsgWorker;
 import com.otus.hw_16.master.channel.SocketMsgWorker;
-import com.otus.hw_16.master.messages.PingMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -40,7 +39,7 @@ public class BackMain {
         executorService.submit(() -> {
             try {
                 while (true) {
-                    Object msg = client.take();
+                    Msg msg = client.take();
                     System.out.println("Message received: " + msg.toString());
                 }
             } catch (InterruptedException e) {
