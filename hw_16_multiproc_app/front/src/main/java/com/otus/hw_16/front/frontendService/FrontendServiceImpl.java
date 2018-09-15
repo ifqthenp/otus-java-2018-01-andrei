@@ -27,7 +27,7 @@ public class FrontendServiceImpl implements FrontendService {
     }
 
     @Override
-    public void handleRequest(final String id, MsgWorker frontClient) {
+    public void handleRequestFromWebSocket(final String id, MsgWorker frontClient) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
             try {
@@ -35,7 +35,7 @@ public class FrontendServiceImpl implements FrontendService {
                     Msg msg = frontClient.take();
                     System.out.println("Message received: " + msg.toString());
                     PingMsg response = (PingMsg) msg;
-                    addUserDataSet("Response to WebSockets: " + response.getMessage());
+                    handleResponseToWebSocket("Response to WebSockets: " + response.getMessage());
                 }
             } catch (InterruptedException e) {
                 logger.info(e.getMessage());
@@ -47,7 +47,7 @@ public class FrontendServiceImpl implements FrontendService {
     }
 
     @Override
-    public void addUserDataSet(final String id) {
+    public void handleResponseToWebSocket(final String id) {
         msgWebSocketHandler.sendToWebSockets(id);
     }
 

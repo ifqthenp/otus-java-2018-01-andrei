@@ -7,9 +7,9 @@ public interface FrontendService {
 
     void init();
 
-    void handleRequest(String id, MsgWorker frontClient);
+    void handleRequestFromWebSocket(String id, MsgWorker frontClient);
 
-    void addUserDataSet(String id);
+    void handleResponseToWebSocket(String id);
 
     MsgWebSocketHandler getMsgWebSocketHandler();
 
