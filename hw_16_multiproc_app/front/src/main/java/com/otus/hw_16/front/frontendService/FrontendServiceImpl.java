@@ -3,7 +3,8 @@ package com.otus.hw_16.front.frontendService;
 import com.otus.hw_16.front.websocket.MsgWebSocketHandler;
 import com.otus.hw_16.master.app.Msg;
 import com.otus.hw_16.master.app.MsgWorker;
-import com.otus.hw_16.master.messages.PingMsg;
+import com.otus.hw_16.master.messages.UserDataByIdRequest;
+import com.otus.hw_16.master.messages.UserDataByIdResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public class FrontendServiceImpl implements FrontendService {
                 while (true) {
                     Msg msg = frontClient.take();
                     System.out.println("Message received: " + msg.toString());
-                    PingMsg response = (PingMsg) msg;
+                    UserDataByIdResponse response = (UserDataByIdResponse) msg;
                     handleResponseToWebSocket("Response to WebSockets: " + response.getMessage());
                 }
             } catch (InterruptedException e) {
@@ -42,7 +43,7 @@ public class FrontendServiceImpl implements FrontendService {
             }
         });
 
-        Msg msg = new PingMsg(id);
+        Msg msg = new UserDataByIdRequest(id);
         frontClient.send(msg);
     }
 
