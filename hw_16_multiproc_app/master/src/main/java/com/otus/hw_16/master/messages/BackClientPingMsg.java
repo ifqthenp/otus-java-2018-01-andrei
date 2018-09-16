@@ -4,19 +4,19 @@ import com.otus.hw_16.master.app.Msg;
 
 import java.time.LocalDateTime;
 
-public class PingMsg extends Msg {
+public class BackClientPingMsg extends Msg {
 
     private final LocalDateTime time;
     private final String message;
 
-    public PingMsg() {
-        super(PingMsg.class);
+    public BackClientPingMsg() {
+        super(BackClientPingMsg.class);
         this.time = LocalDateTime.now();
         this.message = null;
     }
 
-    public PingMsg(String message) {
-        super(PingMsg.class);
+    public BackClientPingMsg(String message) {
+        super(BackClientPingMsg.class);
         this.time = LocalDateTime.now();
         this.message = message;
     }
@@ -31,7 +31,7 @@ public class PingMsg extends Msg {
 
     @Override
     public String toString() {
-        return "PingMsg{" +
+        return "BackClientPingMsg{" +
                 "time=" + this.time +
                 ", message='" + this.message + '\'' +
                 '}';
