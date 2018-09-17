@@ -67,6 +67,12 @@ public class BackMain {
         Msg message = new BackClientPingMsg();
         client.send(message);
     }
+
+    private String convertToJson(final Object o) {
+        return new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create()
+                .toJson(o);
     }
 
 }
