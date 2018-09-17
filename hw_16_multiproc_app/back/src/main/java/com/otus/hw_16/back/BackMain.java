@@ -47,7 +47,17 @@ public class BackMain {
             try {
                 while (true) {
                     Msg msg = client.take();
-                    System.out.println("Message received: " + msg.toString());
+                    logger.info("Message has been received on backend: {}", msg.toString());
+
+                    if (msg instanceof UserDataByIdRequest) {
+                        final Long userId = Long.parseLong(((UserDataByIdRequest) msg).getMessage());
+                        final UserDataSet proxiedUserDataSet = dbService.read(userId);
+                        final UserDataSet userDataSet = (UserDataSet) Hibernate.unproxy(proxiedUserDataSet);
+                        final String userDataJson = convertToJson(userDataSet);
+                        final UserDataByIdResponse response = new UserDataByIdResponse(userDataJson);
+                        client.send(response);
+                        logger.info("Response message has been sent to frontend: {}", response.toString());
+                    }
                 }
             } catch (InterruptedException e) {
                 logger.info(e.getMessage());
