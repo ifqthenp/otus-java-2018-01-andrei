@@ -36,7 +36,7 @@ public class FrontendServiceImpl implements FrontendService {
                     Msg msg = frontClient.take();
                     System.out.println("Message received: " + msg.toString());
                     UserDataByIdResponse response = (UserDataByIdResponse) msg;
-                    handleResponseToWebSocket("Response to WebSockets: " + response.getMessage());
+                    handleResponseToWebSocket(response.getMessage());
                 }
             } catch (InterruptedException e) {
                 logger.info(e.getMessage());
