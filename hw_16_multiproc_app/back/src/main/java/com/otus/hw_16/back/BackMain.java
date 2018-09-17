@@ -23,6 +23,8 @@ public class BackMain {
 
     private static final Logger logger = LoggerFactory.getLogger(BackMain.class.getName());
 
+    private DBService dbService;
+
     private static final int PORT = 5050;
     private static final int PAUSE_MS = 5000;
     private static final String HOST = "localhost";
@@ -34,7 +36,11 @@ public class BackMain {
 
         DatabaseUtil.emulateLoad(context);
 
-        new BackMain().start();
+        new BackMain(context).start();
+    }
+
+    private BackMain(ApplicationContext context) {
+        dbService = context.getBean(DBService.class);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
