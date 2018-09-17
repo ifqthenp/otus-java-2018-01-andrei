@@ -17,9 +17,10 @@ public class ServerMain {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class.getName());
 
+    private static final int CLIENT_START_DELAY_SEC = 3;
+    private static final String JETTY_HOME = System.getenv("JETTY_HOME");
     private static final String BACKEND_START_COMMAND = "java -jar back/target/back.jar";
-    private static final String FRONTEND_START_COMMAND = "cp front/target/front.war ${JETTY_HOME}/webapps/root.war";
-    private static final int CLIENT_START_DELAY_SEC = 5;
+    private static final String FRONTEND_START_COMMAND = "cp front/target/front.war " +  JETTY_HOME + "/webapps/root.war";
 
     public static void main(String[] args) throws Exception {
         new ServerMain().start();
@@ -28,7 +29,7 @@ public class ServerMain {
     private void start() throws Exception {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         startClient(executorService, BACKEND_START_COMMAND);
-//        startClient(executorService, FRONTEND_START_COMMAND);
+        startClient(executorService, FRONTEND_START_COMMAND);
 
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("ru.otus:type=Server");
