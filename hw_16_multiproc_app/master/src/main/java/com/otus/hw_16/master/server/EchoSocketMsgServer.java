@@ -4,6 +4,9 @@ import com.otus.hw_16.master.app.Msg;
 import com.otus.hw_16.master.app.MsgWorker;
 import com.otus.hw_16.master.channel.Blocks;
 import com.otus.hw_16.master.channel.SocketMsgWorker;
+import com.otus.hw_16.master.messages.BackClientPingMsg;
+import com.otus.hw_16.master.messages.UserDataByIdRequest;
+import com.otus.hw_16.master.messages.UserDataByIdResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +54,24 @@ public class EchoSocketMsgServer implements EchoSocketMsgServerMBean {
             for (MsgWorker client : workers) {
                 Msg msg = client.pool();
                 while (msg != null) {
-                    System.out.println("Mirroring the message: " + msg.toString());
-                    client.send(msg);
+                    logger.info("Message received on server: {}", msg.toString());
+                    if (msg instanceof BackClientPingMsg) {
+                        client.setIsFromBackend(true);
+                    } else if (msg instanceof UserDataByIdRequest) {
+                        for (MsgWorker worker : workers) {
+                            if (worker.isFromBackend()) {
+                                worker.send(msg);
+                            }
+                        }
+                    } else if (msg instanceof UserDataByIdResponse) {
+                        for (MsgWorker worker : workers) {
+                            if (!worker.isFromBackend()) {
+                                worker.send(msg);
+                            }
+                        }
+                    } else {
+                        logger.info("Unknown message: {}", msg.toString());
+                    }
                     msg = client.pool();
                 }
             }
