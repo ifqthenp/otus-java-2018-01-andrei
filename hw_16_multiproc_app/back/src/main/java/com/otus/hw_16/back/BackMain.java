@@ -1,9 +1,16 @@
 package com.otus.hw_16.back;
 
+import com.google.gson.GsonBuilder;
+import com.otus.hw_16.back.dbService.DBService;
+import com.otus.hw_16.back.entities.UserDataSet;
 import com.otus.hw_16.back.util.DatabaseUtil;
 import com.otus.hw_16.master.app.Msg;
 import com.otus.hw_16.master.channel.ClientSocketMsgWorker;
 import com.otus.hw_16.master.channel.SocketMsgWorker;
+import com.otus.hw_16.master.messages.BackClientPingMsg;
+import com.otus.hw_16.master.messages.UserDataByIdRequest;
+import com.otus.hw_16.master.messages.UserDataByIdResponse;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -47,16 +54,9 @@ public class BackMain {
             }
         });
 
-        int count = 0;
-        while (count < MAX_MESSAGES_COUNT) {
-            Msg msg = new PingMsg();
-            client.send(msg);
-            System.out.println("Message sent: " + msg.toString());
-            Thread.sleep(PAUSE_MS);
-            count++;
-        }
-        client.close();
-        executorService.shutdown();
+        Msg message = new BackClientPingMsg();
+        client.send(message);
+    }
     }
 
 }
