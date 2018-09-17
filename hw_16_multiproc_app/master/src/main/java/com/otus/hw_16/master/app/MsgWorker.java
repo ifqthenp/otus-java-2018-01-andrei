@@ -15,4 +15,8 @@ public interface MsgWorker {
 
     void close() throws IOException;
 
+    void setIsFromBackend(boolean isFromBackend);
+
+    boolean isFromBackend();
+
 }

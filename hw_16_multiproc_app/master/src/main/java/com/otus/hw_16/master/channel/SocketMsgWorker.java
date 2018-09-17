@@ -18,7 +18,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.logging.Level;
 
 public class SocketMsgWorker implements MsgWorker {
 
@@ -30,6 +29,7 @@ public class SocketMsgWorker implements MsgWorker {
 
     private final ExecutorService executor;
     private final Socket socket;
+    private boolean isFromBackend;
 
     public SocketMsgWorker(Socket socket) {
         this.socket = socket;
@@ -54,6 +54,16 @@ public class SocketMsgWorker implements MsgWorker {
     @Override
     public void close() throws IOException {
         executor.shutdown();
+    }
+
+    @Override
+    public void setIsFromBackend(final boolean isFromBackend) {
+        this.isFromBackend = isFromBackend;
+    }
+
+    @Override
+    public boolean isFromBackend() {
+        return isFromBackend;
     }
 
     public void init() {
