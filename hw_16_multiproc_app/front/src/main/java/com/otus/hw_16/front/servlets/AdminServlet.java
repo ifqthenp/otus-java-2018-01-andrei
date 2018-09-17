@@ -5,10 +5,9 @@ import com.otus.hw_16.front.websocket.MsgWebSocketCreator;
 import com.otus.hw_16.master.app.MsgWorker;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +43,9 @@ public class AdminServlet extends WebSocketServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        ApplicationContext applicationContext = (ClassPathXmlApplicationContext) config.getServletContext().getAttribute("applicationContext");
-        this.frontendService = (FrontendService) applicationContext.getBean("frontendService");
-        this.frontClient = (MsgWorker) applicationContext.getBean("msgWorker");
+        ServletContext servletContext = config.getServletContext();
+        this.frontendService = (FrontendService) servletContext.getAttribute("frontendService");
+        this.frontClient = (MsgWorker) servletContext.getAttribute("msgWorker");
         super.init(config);
     }
 
