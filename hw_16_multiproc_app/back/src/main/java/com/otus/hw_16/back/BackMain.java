@@ -26,9 +26,7 @@ public class BackMain {
     private DBService dbService;
 
     private static final int PORT = 5050;
-    private static final int PAUSE_MS = 5000;
     private static final String HOST = "localhost";
-    private static final int MAX_MESSAGES_COUNT = 10;
 
     public static void main(String[] args) throws Exception {
         ApplicationContext context =
