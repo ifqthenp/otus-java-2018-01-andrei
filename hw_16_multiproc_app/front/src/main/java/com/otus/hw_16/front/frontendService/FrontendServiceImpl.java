@@ -23,11 +23,6 @@ public class FrontendServiceImpl implements FrontendService {
     }
 
     @Override
-    public void init() {
-//        this.context.getMessageSystem().addAddressee(this);
-    }
-
-    @Override
     public void handleRequestFromWebSocket(final String id, MsgWorker frontClient) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
