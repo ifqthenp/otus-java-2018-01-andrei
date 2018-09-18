@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
     <script type="text/javascript" src="js/ws.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <title>Admin Page</title>
 </head>
 <body>
@@ -49,12 +50,23 @@
                     <h3>Websocket Test</h3>
                 </div>
                 <div class="row">
-                    <form action="">
-                        <input onclick="webSocket.sendUserId()" value="Get user" type="button">
-                        <input id="userId" name="message" value="1" type="text"><br>
+                    <form class="form-inline" action="">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="userId" class="sr-only">Password</label>
+                            <input type="text" id="userId" class="form-control" placeholder="Enter user ID"><br>
+                        </div>
+                        <button class="btn btn-primary mb-2" onclick="webSocket.sendUserId()" type="button">Get user</button>
                     </form>
                 </div>
-                <div class="row" id="output"></div>
+                <div class="row">
+                    <p id="status"></p>
+                </div>
+                <div class="row">
+                    <p id="request"></p>
+                </div>
+                <div class="row">
+                    <p id="response"></p>
+                </div>
             </div>
 
             <div class="col">

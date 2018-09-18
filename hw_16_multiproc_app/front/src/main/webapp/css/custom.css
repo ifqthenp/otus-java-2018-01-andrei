@@ -3,4 +3,10 @@
     margin-bottom: 1.5rem;
 }
 
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
 
+input:focus:-moz-placeholder {
+    color: transparent;
+}
