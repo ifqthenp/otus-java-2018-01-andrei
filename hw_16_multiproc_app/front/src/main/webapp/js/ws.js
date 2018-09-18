@@ -1,24 +1,25 @@
 var webSocket = (function () {
 
     var ws;
-    var output;
+    var status = "status";
+    var request = "request";
+    var response = "response";
     var uri = "ws://localhost:8080/admin";
 
     function init() {
 
-        output = document.getElementById("output");
         ws = new WebSocket(uri);
 
         ws.onopen = function () {
-            writeToScreen("Connected to " + uri);
+            writeToScreen(status, "Connected to " + uri);
         };
 
         ws.onmessage = function (evt) {
-            writeToScreen(evt.data);
+            writeToScreen(response, evt.data);
         };
 
         ws.onerror = function (evt) {
-            writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+            writeToScreen(status, '<span style="color: red;">ERROR:</span> ' + evt.data);
             ws.close();
         };
     }
@@ -30,13 +31,11 @@ var webSocket = (function () {
 
     function doSend(message) {
         ws.send(message);
-        writeToScreen("Message sent: " + message);
+        writeToScreen(request, "Message sent: " + message);
     }
 
-    function writeToScreen(message) {
-        var p = document.createElement("p");
-        p.innerHTML = message;
-        output.appendChild(p);
+    function writeToScreen(element, message) {
+        document.getElementById(element).innerText = message;
     }
 
     return {
