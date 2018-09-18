@@ -55,23 +55,11 @@ public class EchoSocketMsgServer implements EchoSocketMsgServerMBean {
                 Msg msg = client.pool();
                 while (msg != null) {
                     logger.info("Message received on server: {}", msg.toString());
-                    if (msg instanceof BackClientPingMsg) {
-                        client.setIsFromBackend(true);
-                    } else if (msg instanceof UserDataByIdRequest) {
-                        for (MsgWorker worker : workers) {
-                            if (worker.isFromBackend()) {
-                                worker.send(msg);
-                            }
-                        }
-                    } else if (msg instanceof UserDataByIdResponse) {
-                        for (MsgWorker worker : workers) {
-                            if (!worker.isFromBackend()) {
-                                worker.send(msg);
-                            }
-                        }
-                    } else {
-                        logger.info("Unknown message: {}", msg.toString());
+
+                    for (MsgWorker worker : workers) {
+                        sendMsg(msg, client, worker);
                     }
+
                     msg = client.pool();
                 }
             }
@@ -80,6 +68,22 @@ public class EchoSocketMsgServer implements EchoSocketMsgServerMBean {
             } catch (InterruptedException e) {
                 logger.error(e.toString());
             }
+        }
+    }
+
+    private void sendMsg(final Msg msg, final MsgWorker client, final MsgWorker worker) {
+        if (msg instanceof BackClientPingMsg) {
+            client.setIsFromBackend(true);
+        } else if (msg instanceof UserDataByIdRequest) {
+            if (worker.isFromBackend()) {
+                worker.send(msg);
+            }
+        } else if (msg instanceof UserDataByIdResponse) {
+            if (!worker.isFromBackend()) {
+                worker.send(msg);
+            }
+        } else {
+            logger.info("Unknown message: {}", msg.toString());
         }
     }
 
