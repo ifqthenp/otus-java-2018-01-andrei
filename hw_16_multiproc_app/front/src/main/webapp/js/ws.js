@@ -26,17 +26,15 @@ var webSocket = (function () {
 
     function updateCache() {
         var message = {
-            type: "cacheUpdateRequest",
-            date: Date.now()
+            className: "cacheUpdateRequest"
         };
         doSend(message);
     }
 
     function sendUserId() {
         var message = {
-            type: "userDataByIdRequest",
-            text: document.getElementById("userId").value,
-            date: Date.now()
+            message: document.getElementById("userId").value,
+            className: "userDataByIdRequest"
         };
         doSend(message);
     }
