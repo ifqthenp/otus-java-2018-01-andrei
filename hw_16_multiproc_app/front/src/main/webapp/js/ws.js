@@ -25,17 +25,25 @@ var webSocket = (function () {
     }
 
     function updateCache() {
-
+        var message = {
+            type: "cacheUpdateRequest",
+            date: Date.now()
+        };
+        doSend(message);
     }
 
     function sendUserId() {
-        var userId = document.getElementById("userId").value;
-        doSend(userId);
+        var message = {
+            type: "userDataByIdRequest",
+            text: document.getElementById("userId").value,
+            date: Date.now()
+        };
+        doSend(message);
     }
 
     function doSend(message) {
-        ws.send(message);
-        writeToScreen(request, "Message sent: " + message);
+        ws.send(JSON.stringify(message));
+        writeToScreen(request, "Message sent: " + JSON.parse(message.type));
     }
 
     function writeToScreen(element, message) {
