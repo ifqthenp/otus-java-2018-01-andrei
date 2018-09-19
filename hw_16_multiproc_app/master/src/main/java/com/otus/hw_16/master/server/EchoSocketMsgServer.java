@@ -4,9 +4,7 @@ import com.otus.hw_16.master.app.Msg;
 import com.otus.hw_16.master.app.MsgWorker;
 import com.otus.hw_16.master.channel.Blocks;
 import com.otus.hw_16.master.channel.SocketMsgWorker;
-import com.otus.hw_16.master.messages.BackClientPingMsg;
-import com.otus.hw_16.master.messages.UserDataByIdRequest;
-import com.otus.hw_16.master.messages.UserDataByIdResponse;
+import com.otus.hw_16.master.messages.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,13 +70,16 @@ public class EchoSocketMsgServer implements EchoSocketMsgServerMBean {
     }
 
     private void sendMsg(final Msg msg, final MsgWorker client, final MsgWorker worker) {
+        boolean isRequestMsg = msg instanceof UserDataByIdRequest || msg instanceof CacheUpdateRequest;
+        boolean isResponseMsg = msg instanceof UserDataByIdResponse || msg instanceof CacheUpdateResponse;
+
         if (msg instanceof BackClientPingMsg) {
             client.setIsFromBackend(true);
-        } else if (msg instanceof UserDataByIdRequest) {
+        } else if (isRequestMsg) {
             if (worker.isFromBackend()) {
                 worker.send(msg);
             }
-        } else if (msg instanceof UserDataByIdResponse) {
+        } else if (isResponseMsg) {
             if (!worker.isFromBackend()) {
                 worker.send(msg);
             }
