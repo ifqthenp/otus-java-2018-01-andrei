@@ -70,16 +70,24 @@
             </div>
 
             <div class="col">
-                <table class="table">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Parameter</th>
-                        <th scope="col">Value</th>
-                    </tr>
-                    </thead>
 
-                    <tbody>
+                <div class="row">
+                    <form class="form-inline" action="">
+                        <button class="btn btn-primary mb-2" onclick="webSocket.updateCache()" type="button">Update Cache</button>
+                    </form>
+                </div>
+
+                <div class="row">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Parameter</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
                           <#list stats as propName, propValue>
                           <tr>
                               <th scope="row">${propName?index+1}</th>
@@ -87,8 +95,9 @@
                               <td>${propValue}</td>
                           </tr>
                           </#list>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

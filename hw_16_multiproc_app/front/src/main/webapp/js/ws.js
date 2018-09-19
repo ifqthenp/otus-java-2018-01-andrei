@@ -24,6 +24,10 @@ var webSocket = (function () {
         };
     }
 
+    function updateCache() {
+
+    }
+
     function sendUserId() {
         var userId = document.getElementById("userId").value;
         doSend(userId);
@@ -40,7 +44,8 @@ var webSocket = (function () {
 
     return {
         init: init,
-        sendUserId: sendUserId
+        sendUserId: sendUserId,
+        updateCache: updateCache
     };
 
 })();
