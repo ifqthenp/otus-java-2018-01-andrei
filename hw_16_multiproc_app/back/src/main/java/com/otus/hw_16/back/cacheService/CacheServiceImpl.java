@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 public class CacheServiceImpl implements CacheService {
 
     private final static String XML_CONFIG = "/ehcache.xml";
-    private final static String USER_DATASET_CACHE_NAME = "userDataSetCache";
     private final CachingProvider provider;
     private final CacheManager manager;
 

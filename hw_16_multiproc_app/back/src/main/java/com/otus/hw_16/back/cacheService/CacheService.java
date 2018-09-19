@@ -7,6 +7,8 @@ import javax.cache.CacheManager;
 
 public interface CacheService {
 
+    String USER_DATASET_CACHE_NAME = "userDataSetCache";
+
     CacheManager getCacheManager();
 
     Cache<Long, UserDataSet> getUserDataSetCache();
