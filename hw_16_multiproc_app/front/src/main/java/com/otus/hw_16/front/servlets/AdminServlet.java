@@ -2,7 +2,6 @@ package com.otus.hw_16.front.servlets;
 
 import com.otus.hw_16.front.frontendService.FrontendService;
 import com.otus.hw_16.front.websocket.MsgWebSocketCreator;
-import com.otus.hw_16.master.app.MsgWorker;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
@@ -23,7 +22,6 @@ import static com.otus.hw_16.front.servlets.SharedConstants.DEFAULT_VISITOR;
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
 public class AdminServlet extends WebSocketServlet {
 
-    private MsgWorker frontClient;
     private FrontendService frontendService;
 
     private static Map<String, Object> createPageVariablesMap(HttpServletRequest request) {
@@ -45,7 +43,6 @@ public class AdminServlet extends WebSocketServlet {
     public void init(ServletConfig config) throws ServletException {
         ServletContext servletContext = config.getServletContext();
         this.frontendService = (FrontendService) servletContext.getAttribute("frontendService");
-        this.frontClient = (MsgWorker) servletContext.getAttribute("msgWorker");
         super.init(config);
     }
 
@@ -70,7 +67,7 @@ public class AdminServlet extends WebSocketServlet {
     @Override
     public void configure(final WebSocketServletFactory webSocketServletFactory) {
         webSocketServletFactory.getPolicy().setIdleTimeout(1_000_000);
-        webSocketServletFactory.setCreator(new MsgWebSocketCreator(this.frontendService, this.frontClient));
+        webSocketServletFactory.setCreator(new MsgWebSocketCreator(this.frontendService));
     }
 
     private void setOK(final HttpServletResponse resp) {
