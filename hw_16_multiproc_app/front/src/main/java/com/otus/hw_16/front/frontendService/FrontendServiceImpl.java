@@ -42,14 +42,14 @@ public class FrontendServiceImpl implements FrontendService {
     }
 
     @Override
-    public void handleRequestFromWebSocket(final String id) {
-        Msg msg = new UserDataByIdRequest(id);
+    public void handleRequestFromWebSocket(final String message) {
+        Msg msg = new UserDataByIdRequest(message);
         frontClient.send(msg);
     }
 
     @Override
-    public void handleResponseToWebSocket(final String id) {
-        msgWebSocketHandler.sendToWebSockets(id);
+    public void handleResponseToWebSocket(final String message) {
+        msgWebSocketHandler.sendToWebSockets(message);
     }
 
     @Override

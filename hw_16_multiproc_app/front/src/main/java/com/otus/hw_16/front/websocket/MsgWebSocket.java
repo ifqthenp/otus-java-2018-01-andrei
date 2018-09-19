@@ -24,9 +24,9 @@ public class MsgWebSocket {
     }
 
     @OnWebSocketMessage
-    public void onMessage(final String id) {
-        frontendService.handleRequestFromWebSocket(id);
-        logger.info("Request for user ID {} has been sent", id);
+    public void onMessage(final String message) {
+        frontendService.handleRequestFromWebSocket(message);
+        logger.info("Message has been sent from websocket: {}", message);
     }
 
     @OnWebSocketConnect
