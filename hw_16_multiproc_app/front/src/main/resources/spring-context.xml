@@ -5,7 +5,8 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="frontendService"
-          class="com.otus.hw_16.front.frontendService.FrontendServiceImpl">
+          class="com.otus.hw_16.front.frontendService.FrontendServiceImpl"
+          init-method="init">
         <constructor-arg index="0" ref="msgWebSocketHandler"/>
         <constructor-arg index="1" ref="msgWorker"/>
     </bean>
