@@ -9,8 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
-    <script type="text/javascript" src="js/ws.js"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <title>Admin Page</title>
 </head>
 <body>
@@ -103,6 +101,9 @@
     </div>
 
 </main>
+
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/ws.js"></script>
 
 </body>
 </html>
