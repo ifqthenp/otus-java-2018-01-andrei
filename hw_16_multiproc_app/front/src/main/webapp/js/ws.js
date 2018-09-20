@@ -1,6 +1,8 @@
 var webSocket = (function () {
 
     var ws;
+    var element;
+    var stats = "stats";
     var status = "status";
     var request = "request";
     var response = "response";
@@ -15,7 +17,9 @@ var webSocket = (function () {
         };
 
         ws.onmessage = function (evt) {
-            writeToScreen(response, evt.data);
+            var object = JSON.parse(evt.data);
+            var result = getHtmlString(object);
+            writeToScreen(element, result);
         };
 
         ws.onerror = function (evt) {
@@ -24,10 +28,22 @@ var webSocket = (function () {
         };
     }
 
+    function getHtmlString(object) {
+        var result = '';
+        var i = 1;
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                result += '<tr><th scope="row">' + i++ + '</th><td>' + key + '</td><td>' + object[key] + '</td></tr>';
+            }
+        }
+        return result;
+    }
+
     function updateCache() {
         var message = {
             className: "cacheUpdateRequest"
         };
+        element = stats;
         doSend(message);
     }
 
@@ -36,6 +52,7 @@ var webSocket = (function () {
             message: document.getElementById("userId").value,
             className: "userDataByIdRequest"
         };
+        element = response;
         doSend(message);
     }
 
@@ -45,7 +62,7 @@ var webSocket = (function () {
     }
 
     function writeToScreen(element, message) {
-        document.getElementById(element).innerText = message;
+        document.getElementById(element).innerHTML = message;
     }
 
     return {
