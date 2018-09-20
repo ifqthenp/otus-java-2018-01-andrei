@@ -95,7 +95,7 @@
                         </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="stats">
                           <#list stats as propName, propValue>
                           <tr>
                               <th scope="row">${propName?index+1}</th>
