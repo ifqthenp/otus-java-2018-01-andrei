@@ -16,8 +16,8 @@ public final class DatabaseUtil {
         DBService dbService = context.getBean(DBService.class);
 
         List<AddressDataSet> addresses = getAddressList();
-        for (int i = 0; i < 11; i++) {
-            dbService.save(getUser("user" + i, addresses.get(new Random().nextInt(5))));
+        for (int i = 0; i < 15; i++) {
+            dbService.save(getUser("User " + i, addresses.get(new Random().nextInt(5))));
         }
     }
 
