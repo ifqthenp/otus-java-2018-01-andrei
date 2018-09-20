@@ -2,6 +2,14 @@
 
 JETTY_HOME=/opt/jetty/jetty-9.4.12
 
+if ps -aux | grep -q '[j]etty'; then
+    printf "%s\\n" "Jetty is running..."
+else
+    printf "%s\\n" "starting Jetty server..."
+    ${JETTY_HOME}/bin/jetty.sh start
+    sleep 2
+fi
+
 if ps -aux | grep -q '[m]ysqld'; then
     printf "%s\\n" "mysql is running..."
 else
