@@ -27,25 +27,7 @@ git clone -b master https://github.com/ifqthenp/otus-java-2018-01-andrei.git
 cd otus-java-2018-01-andrei/hw_16_multiproc_app
 ```
 
-and run MySQL database in Docker container 
-
-```shell
-docker-compose up -d
-```
-
-export `JETTY_HOME` environment variable. For example:
-
-```shell
-export JETTY_HOME=/opt/my-jetty-home-folder
-```
-
-start Jetty server
-
-```shell
-$JETTY_HOME/bin/jetty.sh start
-```
-
-then run `deploy.sh` script from project root folder
+and run `deploy.sh` script
 
 ```shell
 ./deploy.sh
@@ -56,6 +38,9 @@ finally, type in your browser's URL bar
 ```text
 http://localhost:8080/
 ```
+
+This application requires `docker-compose` to be installed on the system and
+Jetty installed in `/opt/jetty/jetty-9.4.12`
 
 ### Useful Docker commands:
 
