@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.otus.hw_16.front.servlets.SharedConstants.DEFAULT_PASSWORD;
 import static com.otus.hw_16.front.servlets.SharedConstants.DEFAULT_VISITOR;
 
 @WebServlet(name = "AdminServlet", urlPatterns = "/admin")
@@ -49,15 +48,7 @@ public class AdminServlet extends WebSocketServlet {
     public void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         final HttpSession session = req.getSession();
         String userName = (String) session.getAttribute("username");
-        Map<String, Object> stats;
-
-        if (userName != null && session.getAttribute("password").equals(DEFAULT_PASSWORD)) {
-            stats = createPageVariablesMap(req);
-//            stats = MBeansUtil.getEhCacheStats("userDataSetCache");
-        } else {
-            stats = createPageVariablesMap(req);
-        }
-
+        Map<String, Object> stats = createPageVariablesMap(req);
         req.setAttribute("stats", stats);
         req.setAttribute("visitor", userName != null ? userName : DEFAULT_VISITOR);
         setOK(resp);
