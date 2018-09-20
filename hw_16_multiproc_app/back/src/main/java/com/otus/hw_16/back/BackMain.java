@@ -58,16 +58,10 @@ public class BackMain {
                     Msg response = null;
 
                     if (msg instanceof UserDataByIdRequest) {
-                        final Long userId = Long.parseLong(((UserDataByIdRequest) msg).getMessage());
-                        final UserDataSet proxiedUserDataSet = dbService.read(userId);
-                        final UserDataSet userDataSet = (UserDataSet) Hibernate.unproxy(proxiedUserDataSet);
-                        final String userDataJson = convertToJson(userDataSet);
-                        response = new UserDataByIdResponse(userDataJson);
+                        response = getUserDataByIdResponse(msg);
                         client.send(response);
                     } else if (msg instanceof CacheUpdateRequest) {
-                        final Map<String, Object> cacheStats = MBeansUtil.getEhCacheStats(CacheService.USER_DATASET_CACHE_NAME);
-                        final String cacheStatsJson = convertToJson(cacheStats);
-                        response = new CacheUpdateResponse(cacheStatsJson);
+                        response = getCacheUpdateResponse();
                         client.send(response);
                     }
                     logger.info("Response message has been sent to frontend: {}", Objects.requireNonNull(response).toString());
@@ -79,6 +73,20 @@ public class BackMain {
 
         Msg message = new BackClientPingMsg();
         client.send(message);
+    }
+
+    private Msg getCacheUpdateResponse() {
+        final Map<String, Object> cacheStats = MBeansUtil.getEhCacheStats(CacheService.USER_DATASET_CACHE_NAME);
+        final String cacheStatsJson = convertToJson(cacheStats);
+        return new CacheUpdateResponse(cacheStatsJson);
+    }
+
+    private Msg getUserDataByIdResponse(final Msg msg) {
+        final Long userId = Long.parseLong(((UserDataByIdRequest) msg).getMessage());
+        final UserDataSet proxiedUserDataSet = dbService.read(userId);
+        final UserDataSet userDataSet = (UserDataSet) Hibernate.unproxy(proxiedUserDataSet);
+        final String userDataJson = convertToJson(userDataSet);
+        return new UserDataByIdResponse(userDataJson);
     }
 
     private String convertToJson(final Object o) {
