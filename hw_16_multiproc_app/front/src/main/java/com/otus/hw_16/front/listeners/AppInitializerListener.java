@@ -5,6 +5,7 @@ import com.otus.hw_16.master.app.MsgWorker;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -14,14 +15,17 @@ public class AppInitializerListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(final ServletContextEvent sce) {
+        ServletContext context = sce.getServletContext();
+
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
-        sce.getServletContext().setAttribute("applicationContext", ac);
+        context.setAttribute("applicationContext", ac);
 
         FrontendService front = ac.getBean(FrontendService.class);
-        sce.getServletContext().setAttribute("frontendService", front);
+        context.setAttribute("frontendService", front);
 
         MsgWorker msgWorker = ac.getBean(MsgWorker.class);
-        sce.getServletContext().setAttribute("msgWorker", msgWorker);
+        context.setAttribute("msgWorker", msgWorker);
+
     }
 
     @Override
