@@ -63,7 +63,17 @@
                     <p id="request"></p>
                 </div>
                 <div class="row">
-                    <p id="response"></p>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Parameter</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="response"></tbody>
+                    </table>
                 </div>
             </div>
 
