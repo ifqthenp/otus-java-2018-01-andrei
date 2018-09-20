@@ -25,7 +25,3 @@ cd back && mvn clean && cd ..
 mvn package
 
 java -jar master/target/master.jar
-
-# linux
-#cp front/target/front.war ${JETTY_HOME}/webapps/root.war
-
